@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="lexora-release" content="2026-08-31-19:52:00" />
-    <meta name="description" content="龙 - 通过主动回忆真正记住单词。" />
-    <title>龙 · 主动回忆英语学习</title>
+    <meta name="description" content="YUKI - 通过主动回忆真正记住单词。" />
+    <title>YUKI · 主动回忆英语学习</title>
     <style>
 :root {
   --ink: #0b0f19;
@@ -818,6 +818,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .app-main:has(.view[data-view="home"].is-active) .streak-counter,
       .app-main:has(.view[data-view="home"].is-active) #open-manual,
       .app-main:has(.view[data-view="home"].is-active) [data-view-target="settings"] { display: none; }
+      .app-main:has(.view[data-view="home"].is-active) .theme-toggle { display: inline-grid !important; visibility: visible !important; }
       .brand-mark::after { display: none !important; }
       .brand-name { display: grid; gap: 3px; }
       .brand-name strong { font: 700 21px/1 Georgia, serif; letter-spacing: .06em; }
@@ -939,7 +940,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .view:not([data-view="home"]) .calendar-day.has-session, .view:not([data-view="home"]) .week-day.is-complete .week-dot { color: rgb(var(--ios-ink)) !important; background: rgb(var(--ios-accent)) !important; border-color: rgb(var(--ios-accent)) !important; }
       .view[data-view="home"] { display: block; padding: 0; }
       .haven-home { min-height: 100dvh; margin: 0 !important; padding: 118px clamp(18px, 6vw, 96px) 56px !important; background: transparent !important; }
-      .haven-scene { position: fixed; z-index: -1; inset: 0; background-image: linear-gradient(90deg, rgb(0 0 0 / .34), rgb(0 0 0 / .05) 55%, rgb(0 0 0 / .2)), url("./assets/generated/image-1-bc42d4a3.png") !important; background-position: center; background-size: cover; background-repeat: no-repeat; }
+      .haven-scene { position: fixed; z-index: -1; inset: 0; background-image: linear-gradient(90deg, rgb(0 0 0 / .43), rgb(0 0 0 / .08) 55%, rgb(0 0 0 / .26)), url("./assets/generated/image-1-bc42d4a3.png") !important; background-position: center; background-size: cover; background-repeat: no-repeat; }
       .haven-scene::before { background: linear-gradient(90deg, rgb(0 0 0 / .58), rgb(0 0 0 / .06) 48%, rgb(0 0 0 / .42)), linear-gradient(180deg, rgb(0 0 0 / .2), rgb(0 0 0 / .08) 48%, rgb(0 0 0 / .7)) !important; }
       .haven-home-content { max-width: 670px; min-height: calc(100dvh - 175px); justify-content: center; }
       .haven-home h2 { font-size: clamp(45px, 6vw, 82px) !important; font-weight: 650 !important; font-family: Inter, ui-sans-serif, sans-serif !important; letter-spacing: -.055em !important; }
@@ -947,7 +948,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .haven-lede { color: rgb(var(--ios-mist) / .82) !important; }
       .haven-eyebrow { color: rgb(var(--ios-mist) / .78) !important; }
       .pomodoro-panel { width: min(440px,100%); padding: 22px 24px 24px; background: linear-gradient(145deg, rgb(var(--ios-white) / .17), rgb(var(--ios-white) / .06)), rgb(8 13 12 / .24) !important; border: 1px solid var(--ios-line) !important; border-radius: 24px !important; box-shadow: var(--ios-shadow), inset 0 1px 0 rgb(var(--ios-white) / .16) !important; backdrop-filter: blur(26px) saturate(1.08) !important; -webkit-backdrop-filter: blur(26px) saturate(1.08) !important; }
-      .pomodoro-panel { background: rgb(8 13 12 / .28) !important; border-color: rgb(255 255 255 / .18) !important; }
+      .pomodoro-panel { background: rgb(10 12 16 / .3) !important; border-color: rgb(255 255 255 / .2) !important; }
       .pomodoro-main { border-radius: 999px !important; }
       .pomodoro-icon { border-radius: 50% !important; }
       .scene-window { opacity: .72; }
@@ -961,10 +962,10 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       [data-theme="light"] .brand-name small { color: rgb(23 55 45 / .58); }
       [data-theme="light"] .brand-mark { color: #17372d !important; background: rgb(255 255 255 / .56) !important; border-color: rgb(255 255 255 / .7) !important; }
       [data-theme="light"] .streak-counter, [data-theme="light"] .theme-toggle, [data-theme="light"] .icon-button { color: #17372d !important; background: rgb(255 255 255 / .45) !important; border-color: rgb(23 55 45 / .17) !important; }
-      [data-theme="light"] .haven-scene { background-image: linear-gradient(90deg, rgb(255 255 255 / .12), rgb(255 255 255 / .02) 55%, rgb(29 74 59 / .16)), url("./assets/generated/image-1-bc42d4a3.png") !important; filter: brightness(1.12) saturate(.86); }
+      [data-theme="light"] .haven-scene { background-image: linear-gradient(90deg, rgb(255 255 255 / .18), rgb(255 255 255 / .03) 55%, rgb(65 52 31 / .12)), url("./assets/generated/image-1-42688639.png") !important; filter: brightness(1.02) saturate(.94); }
       [data-theme="light"] .haven-scene::before { background: linear-gradient(90deg, rgb(255 255 255 / .1), rgb(255 255 255 / .02) 48%, rgb(29 74 59 / .16)), linear-gradient(180deg, rgb(255 255 255 / .1), transparent 48%, rgb(30 68 53 / .24)) !important; }
       [data-theme="light"] .haven-home h2 { color: #17372d !important; }
-      [data-theme="light"] .haven-home h2 span, [data-theme="light"] .haven-lede, [data-theme="light"] .haven-eyebrow { color: #345f50 !important; }
+      [data-theme="light"] .haven-home h2 span, [data-theme="light"] .haven-lede, [data-theme="light"] .haven-eyebrow { color: #3f3a32 !important; }
       [data-theme="light"] .pomodoro-panel { background: linear-gradient(145deg, rgb(255 255 255 / .5), rgb(255 255 255 / .18)), rgb(255 255 255 / .18) !important; border-color: rgb(255 255 255 / .6) !important; box-shadow: 0 28px 90px rgb(55 94 80 / .18), inset 0 1px 0 rgb(255 255 255 / .85) !important; }
       [data-theme="light"] .pomodoro-time { color: #17372d; }
       [data-theme="light"] .pomodoro-topline, [data-theme="light"] .pomodoro-icon { color: #345f50; }
@@ -984,6 +985,42 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .view[data-view="home"].is-active { display: block !important; }
       .view:not([data-view="home"]) { scroll-margin-top: 110px; }
       @media (max-width: 760px) { .sidebar .side-nav { z-index: 101 !important; } .app-main > .topbar { z-index: 90 !important; } }
+
+      /* Final black-gold palette */
+      :root { --ios-gold: #d9ad62; --ios-gold-soft: #f0d7a2; --ios-charcoal: #0b0d11; }
+      [data-theme="dark"] { --ios-gold: #d9ad62; --ios-gold-soft: #f0d7a2; }
+      [data-theme="light"] { --ios-gold: #a7752c; --ios-gold-soft: #c89443; }
+      .haven-eyebrow, .study-eyebrow, .pomodoro-topline span:last-child { color: var(--ios-gold-soft) !important; }
+      .pomodoro-progress span, .study-progress-fill { background: var(--ios-gold) !important; }
+      .streak-counter svg, .word-count, .accent-stat, .article-badge svg { color: var(--ios-gold) !important; }
+      .theme-toggle:hover, .icon-button:hover { color: var(--ios-gold-soft) !important; border-color: var(--ios-gold) !important; }
+      .pomodoro-panel { border-color: rgb(240 215 162 / .24) !important; }
+      .pomodoro-main { color: #17191f !important; background: var(--ios-gold-soft) !important; }
+      .pomodoro-main:hover { color: #11131a !important; background: #f8e8bf !important; }
+      .pomodoro-settings button:hover { color: var(--ios-gold-soft); border-color: var(--ios-gold); }
+      .haven-note > span, .changelog-item time { color: var(--ios-gold) !important; }
+      .word-highlight { color: var(--ios-gold) !important; border-bottom-color: var(--ios-gold) !important; }
+      [data-theme="light"] .haven-scene { background-image: linear-gradient(90deg, rgb(255 255 255 / .16), rgb(255 255 255 / .01) 56%, rgb(75 53 25 / .1)), url("./assets/generated/image-1-42688639.png") !important; }
+      [data-theme="dark"] .haven-scene { background-image: linear-gradient(90deg, rgb(0 0 0 / .48), rgb(0 0 0 / .08) 55%, rgb(0 0 0 / .3)), url("./assets/generated/image-1-bc42d4a3.png") !important; }
+
+      /* Last-pass theme contract: only two themes, always-readable, always-switchable. */
+      #theme-toggle { display: inline-grid !important; visibility: visible !important; opacity: .94 !important; }
+      [data-theme="dark"] .haven-home { color: #f7f2e8 !important; }
+      [data-theme="dark"] .haven-home h2 { color: #f7f2e8 !important; }
+      [data-theme="dark"] .haven-home h2 span { color: #e4c68f !important; }
+      [data-theme="dark"] .haven-lede { color: rgba(247,242,232,.72) !important; }
+      [data-theme="dark"] .pomodoro-panel { background: rgba(9,11,15,.42) !important; border-color: rgba(228,198,143,.3) !important; }
+      [data-theme="dark"] .pomodoro-time { color: #fffaf0 !important; }
+      [data-theme="dark"] .pomodoro-main { color: #17191f !important; background: #e4c68f !important; }
+      [data-theme="dark"] .pomodoro-progress span { background: #d7aa5c !important; }
+      [data-theme="light"] .haven-home { color: #22252d !important; }
+      [data-theme="light"] .haven-home h2 { color: #22252d !important; }
+      [data-theme="light"] .haven-home h2 span { color: #8a5b1a !important; }
+      [data-theme="light"] .haven-lede { color: #4f5661 !important; }
+      [data-theme="light"] .pomodoro-panel { background: rgba(255,255,255,.58) !important; border-color: rgba(92,69,39,.22) !important; }
+      [data-theme="light"] .pomodoro-time { color: #22252d !important; }
+      [data-theme="light"] .pomodoro-main { color: #fffaf0 !important; background: #8a5b1a !important; }
+      [data-theme="light"] .pomodoro-progress span { background: #a7752c !important; }
 
       /* Theme repair: neutral graphite + warm gold, with an always-visible mode toggle. */
       :root {
@@ -1084,14 +1121,36 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       [data-theme="light"] .view:not([data-view="home"]) .prompt-panel { background: rgb(238 242 247 / .95) !important; border-color: rgb(22 29 42 / .13) !important; }
       [data-theme="light"] .view:not([data-view="home"]) .prompt-panel h3 { color: #172033 !important; }
       [data-theme="light"] .view:not([data-view="home"]) .prompt-panel blockquote { color: #617089 !important; }
+
+      /* Theme control: keep one clear switch visible on every route. */
+      #theme-toggle {
+        position: fixed !important;
+        z-index: 220 !important;
+        top: 24px !important;
+        right: 24px !important;
+        display: inline-grid !important;
+        visibility: visible !important;
+        opacity: .92 !important;
+        pointer-events: auto !important;
+        width: 42px !important;
+        height: 42px !important;
+        color: #f2d8a1 !important;
+        background: rgb(8 10 14 / .48) !important;
+        border: 1px solid rgb(242 216 161 / .42) !important;
+        border-radius: 50% !important;
+        box-shadow: 0 10px 26px rgb(0 0 0 / .24), inset 0 1px 0 rgb(255 255 255 / .14) !important;
+      }
+      #theme-toggle:hover { opacity: 1 !important; background: rgb(242 216 161 / .16) !important; border-color: #f2d8a1 !important; }
+      [data-theme="light"] #theme-toggle { color: #8a5b1a !important; background: rgb(255 255 255 / .72) !important; border-color: rgb(138 91 26 / .34) !important; box-shadow: 0 10px 26px rgb(92 69 39 / .16), inset 0 1px 0 rgb(255 255 255 / .9) !important; }
+      @media (max-width: 760px) { #theme-toggle { top: 16px !important; right: 16px !important; } }
     </style>
   </head>
 <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="主导航">
         <div class="brand-lockup">
-          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" role="presentation"><path d="M12 16.5 18.5 10 24 16l5.5-6 6.5 6.5-4.2 3.4c2.3 2.4 3.7 5.6 3.7 9.5 0 7.6-5.2 12.3-11.5 12.3S12.5 37 12.5 29.4c0-3.8 1.3-7 3.7-9.4L12 16.5Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M18 23.5c2.1-1.5 4-2.2 6-2.2s4 .7 6 2.2M20 30.5c1.1 1.2 2.5 1.8 4 1.8s2.9-.6 4-1.8M24 21.4v10.9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="25.5" r="1.2" fill="currentColor"/><circle cx="28" cy="25.5" r="1.2" fill="currentColor"/></svg></span>
-          <span class="brand-name"><strong>龙</strong><small>MEMORY STUDIO</small></span>
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" role="presentation"><path d="M24 7 29 18l11-5-5 11 8 8-11 1-2 11-6-9-10 5 3-11-10-5 11-3Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 17v18M15 24l9 3 9-3M18 34l6-7 6 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21" cy="24" r="1.2" fill="currentColor"/><circle cx="27" cy="24" r="1.2" fill="currentColor"/></svg></span>
+          <span class="brand-name"><strong>YUKI</strong><small>MEMORY STUDIO</small></span>
         </div>
 
         <nav class="side-nav" aria-label="应用页面">
@@ -1117,11 +1176,11 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       <main class="app-main">
         <header class="topbar">
           <div class="mobile-brand brand-lockup">
-            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" role="presentation"><path d="M12 16.5 18.5 10 24 16l5.5-6 6.5 6.5-4.2 3.4c2.3 2.4 3.7 5.6 3.7 9.5 0 7.6-5.2 12.3-11.5 12.3S12.5 37 12.5 29.4c0-3.8 1.3-7 3.7-9.4L12 16.5Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M18 23.5c2.1-1.5 4-2.2 6-2.2s4 .7 6 2.2M20 30.5c1.1 1.2 2.5 1.8 4 1.8s2.9-.6 4-1.8M24 21.4v10.9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="25.5" r="1.2" fill="currentColor"/><circle cx="28" cy="25.5" r="1.2" fill="currentColor"/></svg></span>
-            <span class="brand-name"><strong>龙</strong><small>MEMORY STUDIO</small></span>
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" role="presentation"><path d="M24 7 29 18l11-5-5 11 8 8-11 1-2 11-6-9-10 5 3-11-10-5 11-3Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 17v18M15 24l9 3 9-3M18 34l6-7 6 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21" cy="24" r="1.2" fill="currentColor"/><circle cx="27" cy="24" r="1.2" fill="currentColor"/></svg></span>
+            <span class="brand-name"><strong>YUKI</strong><small>MEMORY STUDIO</small></span>
           </div>
           <div class="page-heading">
-            <p class="eyebrow" id="page-kicker">龙</p>
+            <p class="eyebrow" id="page-kicker">YUKI</p>
             <h1 id="page-title">欢迎回来</h1>
           </div>
           <div class="top-actions">
@@ -1144,7 +1203,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
           <div class="haven-home">
             <div class="haven-scene" aria-hidden="true"><div class="scene-moon"></div><div class="scene-window"></div><div class="scene-desk"></div><div class="scene-lamp"></div></div>
             <div class="haven-home-content">
-              <p class="haven-eyebrow">龙 · FOCUS ROOM</p>
+              <p class="haven-eyebrow">YUKI · FOCUS ROOM</p>
               <h2 id="home-heading">给自己一段<br /><span>不会被打断的时间。</span></h2>
               <p class="haven-lede">一轮只做一件事。</p>
               <div class="pomodoro-panel" aria-label="番茄钟">
@@ -1161,7 +1220,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
 
         <section class="view" data-view="legacy-home" aria-hidden="true">
           <div class="home-view">
-            <p class="home-kicker">龙 · 主动回忆学习</p>
+            <p class="home-kicker">YUKI · 主动回忆学习</p>
             <h2 id="home-heading">今天，<br /><span>记住一个词。</span></h2>
             <p class="home-lede">没有猜题，没有噪音。先从记忆里取出来，再让它在句子里留下痕迹。</p>
             <div class="home-actions"><button class="primary-button home-action" type="button" data-view-target="learn"><i data-lucide="pen-line"></i><span>开始背单词</span></button><button class="secondary-button home-action secondary" type="button" data-view-target="reading"><i data-lucide="book-open-text"></i><span>生成情境阅读</span></button></div>
@@ -1439,7 +1498,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
     <div class="manual-backdrop" id="manual-backdrop" hidden></div>
     <section class="manual-sheet" id="manual-sheet" aria-labelledby="manual-title" aria-modal="true" role="dialog" hidden>
       <div class="sheet-header">
-        <div><p class="section-kicker">龙</p><h2 id="manual-title">使用说明</h2></div>
+        <div><p class="section-kicker">YUKI</p><h2 id="manual-title">使用说明</h2></div>
         <button class="icon-button" type="button" id="close-manual" title="关闭说明" aria-label="关闭说明"><i data-lucide="x"></i></button>
       </div>
       <div class="manual-content">
@@ -1987,7 +2046,7 @@ function closeManual() {
 }
 
 function switchView(view) {
-  const labels = { home: ["龙", "欢迎回来"], learn: ["持续学习", "今日背词"], reading: ["副功能", "情境阅读"], calendar: ["学习档案", "学习日历"], settings: ["本机模型", "模型设置"] };
+  const labels = { home: ["YUKI", "欢迎回来"], learn: ["持续学习", "今日背词"], reading: ["副功能", "情境阅读"], calendar: ["学习档案", "学习日历"], settings: ["本机模型", "模型设置"] };
   document.querySelectorAll(".view").forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
   document.querySelectorAll("[data-view-target]").forEach((item) => item.classList.toggle("is-active", item.dataset.viewTarget === view));
   [elements.pageKicker.textContent, elements.pageTitle.textContent] = labels[view];
