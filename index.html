@@ -255,6 +255,216 @@ textarea::placeholder, input::placeholder { color: #66708c; }
   .word-sheet { padding-inline: 16px; }
 }
 
+/* Dragon editorial redesign: paper, ink, one vermilion mark. */
+:root {
+  --ink: #11110f;
+  --paper: #f3f0e9;
+  --paper-2: #e8e4dc;
+  --surface: #f8f6f1;
+  --line: rgba(17,17,15,.18);
+  --line-strong: rgba(17,17,15,.45);
+  --text: #171715;
+  --muted: #5f5c55;
+  --soft: #817d74;
+  --primary: #bd392b;
+  --primary-strong: #a62f24;
+  --cyan: #315e5b;
+  --amber: #a56a25;
+  --rose: #a62f24;
+  --success: #315e5b;
+  --radius: 0;
+  --shadow: 0 14px 40px rgba(17,17,15,.08);
+  color-scheme: light;
+}
+html, body { background: var(--paper); }
+body { color: var(--text); font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; background-image: none; }
+body::before, body::after { display: none; }
+.app-shell { display: grid; grid-template-columns: 218px minmax(0, 1fr); gap: 0; min-height: 100vh; padding: 0; }
+.sidebar { position: sticky; top: 0; height: 100vh; padding: 30px 20px; background: var(--ink); border: 0; border-right: 1px solid rgba(255,255,255,.18); border-radius: 0; box-shadow: none; backdrop-filter: none; }
+.sidebar::before, .tool-surface::before, .study-card::before, .study-hero::before, .home-panel::before, .manual-sheet::before, .word-sheet::before { display: none; }
+.brand-lockup { color: #f3f0e9; font-family: Georgia, "Times New Roman", serif; font-size: 20px; letter-spacing: .04em; }
+.brand-mark { width: 38px; height: 38px; color: var(--ink); background: var(--paper); border: 0; border-radius: 50%; box-shadow: none; }
+.brand-mark svg { display: none; }
+.brand-mark::after { content: "龍"; font-size: 22px; line-height: 1; }
+.side-nav { gap: 2px; margin-top: 60px; }
+.nav-item { min-height: 43px; padding: 0 11px; color: #a9a69e; border: 0; border-left: 2px solid transparent; border-radius: 0; }
+.nav-item:hover, .nav-item.is-active { color: #fff; background: rgba(255,255,255,.08); border-left-color: #e8b5aa; }
+.nav-item.is-active svg { color: #e8b5aa; filter: none; }
+.side-footnote { padding: 14px 8px; color: #8a877f; border-top: 1px solid rgba(255,255,255,.16); }
+.side-footnote svg { color: #e8b5aa; }
+.app-main { width: min(100%, 1480px); padding: 24px clamp(24px, 5vw, 74px) 64px; }
+.topbar { min-height: 54px; margin-bottom: 34px; padding: 0 0 17px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+.mobile-brand { color: var(--text); }
+.mobile-brand .brand-mark { color: var(--paper); background: var(--ink); }
+.mobile-brand .brand-mark::after { color: var(--paper); }
+.page-heading h1, .view-intro h2, .surface-heading h2 { color: var(--text); font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.02em; }
+.eyebrow, .section-kicker { color: var(--soft); letter-spacing: .12em; text-transform: uppercase; }
+.streak-counter, .theme-toggle, .icon-button { color: var(--text); background: transparent; border: 1px solid var(--line); border-radius: 50%; box-shadow: none; }
+.streak-counter { border-radius: 0; }
+.streak-counter svg, .theme-toggle:hover, .icon-button:hover { color: var(--primary); }
+.icon-button:hover, .theme-toggle:hover { background: rgba(189,57,43,.08); border-color: var(--primary); box-shadow: none; }
+.tool-surface, .study-card, .study-hero { background: var(--surface); border: 1px solid var(--line); border-radius: 0; box-shadow: var(--shadow); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.study-hero { background: var(--ink); color: var(--paper); border-color: var(--ink); box-shadow: none; }
+.study-hero h2, .study-hero p, .study-toolbar h3 { color: var(--paper); }
+.study-eyebrow { color: #e8b5aa; }
+.study-stat { background: transparent; border: 0; border-left: 1px solid rgba(255,255,255,.2); border-radius: 0; }
+.study-stat span { color: #a9a69e; }
+.study-stat strong { color: var(--paper); }
+.study-card { box-shadow: 0 14px 40px rgba(17,17,15,.1); }
+.prompt-panel { background: var(--paper-2); border: 1px solid var(--line); border-radius: 0; box-shadow: none; }
+.prompt-panel h3, .answer-definition, .study-toolbar h3 { color: var(--text); }
+.prompt-panel blockquote, .study-toolbar p, .write-tools span { color: var(--muted); }
+.prompt-hint span { color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 0; }
+.mode-switch { background: transparent; border: 1px solid var(--line-strong); border-radius: 0; }
+.mode-switch button { color: var(--muted); border-radius: 0; }
+.mode-switch button.is-active { color: var(--paper); background: var(--ink); box-shadow: none; }
+.study-progress-track { background: var(--paper-2); border-radius: 0; }
+.study-progress-fill { background: var(--primary); box-shadow: none; border-radius: 0; }
+.handwriting-wrap, .keyboard-answer, textarea, input, select { color: var(--text); background: #fffdfa; border: 1px solid var(--line-strong); border-radius: 0; box-shadow: none; }
+.keyboard-answer:focus, textarea:focus, input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(189,57,43,.1); }
+.primary-button { color: #fffdfa; background: var(--primary); border: 1px solid var(--primary); border-radius: 0; box-shadow: none; }
+.primary-button:hover { color: #fffdfa; background: var(--primary-strong); box-shadow: none; }
+.secondary-button { color: var(--text); background: transparent; border: 1px solid var(--line-strong); border-radius: 0; box-shadow: none; }
+.secondary-button:hover { color: var(--primary); background: rgba(189,57,43,.06); border-color: var(--primary); }
+.reading-directory, .reader-surface, .streak-surface, .history-surface, .calendar-surface, .archive-list-surface, .settings-surface { overflow: hidden; }
+.word-sheet, .manual-sheet { color: var(--text); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 0; box-shadow: 0 25px 80px rgba(17,17,15,.25); backdrop-filter: none; }
+.context-note, .explanation-note { background: var(--paper-2); border: 1px solid var(--line); border-radius: 0; }
+.toast { color: var(--paper); background: var(--ink); border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; }
+.word-highlight { color: var(--primary); border-bottom-color: var(--primary); }
+.word-chip { color: var(--text); background: transparent; border: 1px solid var(--line-strong); border-radius: 0; }
+.calendar-day, .week-dot { border-radius: 0; }
+.calendar-day.has-session, .week-day.is-complete .week-dot { color: #fffdfa; background: var(--ink); border-color: var(--ink); }
+.article-heading h2 { color: var(--text); font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+.article-body { color: #393731; font-family: Georgia, "Times New Roman", serif; }
+
+/* Home: a quiet editorial cover, with React Bits-inspired spotlight and split-text entrance. */
+.home-view { position: relative; min-height: calc(100vh - 110px); display: grid; align-content: center; padding: 12px 0 40px; }
+.home-view::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--spot-x, 60%) var(--spot-y, 32%), rgba(189,57,43,.08), transparent 16%); }
+.home-kicker { color: var(--primary); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+.home-view h2 { max-width: 900px; margin: 0; color: var(--text); font-family: Georgia, "Times New Roman", serif; font-size: clamp(56px, 8.5vw, 126px); font-weight: 500; line-height: .9; letter-spacing: -.06em; }
+.home-view h2 span { color: var(--primary); }
+.home-lede { max-width: 560px; margin: 28px 0 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+.home-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+.home-action { min-height: 48px; padding: 0 18px; font-size: 13px; }
+.home-action.secondary { color: var(--text); background: transparent; border: 1px solid var(--line-strong); }
+.home-action.secondary:hover { color: var(--primary); background: transparent; border-color: var(--primary); }
+.home-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 68px; padding-top: 16px; color: var(--soft); border-top: 1px solid var(--line); font-size: 11px; }
+.home-meta svg { color: var(--primary); }
+.home-lower { display: grid; grid-template-columns: minmax(0,1fr) minmax(250px,.44fr); gap: 24px; margin-top: 54px; }
+.home-panel { padding: 16px 0; background: transparent; border: 0; border-top: 2px solid var(--ink); border-radius: 0; box-shadow: none; }
+.home-panel h3 { color: var(--text); font-family: Georgia, "Times New Roman", serif; font-size: 17px; font-weight: 500; }
+.home-panel p { color: var(--muted); }
+.changelog-item { grid-template-columns: auto 1fr; }
+.changelog-item time { color: var(--primary); }
+.collapsed-settings summary { color: var(--primary); }
+@media (max-width: 680px) { .app-shell { display: block; } .sidebar { display: none; } .app-main { padding: 17px 18px 96px; } .home-view { min-height: auto; padding-top: 28px; } .home-view h2 { font-size: clamp(54px, 17vw, 82px); } .home-lower { grid-template-columns: 1fr; margin-top: 42px; } .home-meta { margin-top: 42px; } }
+@media (prefers-reduced-motion: reduce) { .home-view h2 { animation: none !important; } }
+
+/* Final direction: black-and-white editorial UI, no glass, no neon. */
+:root {
+  --ink: #141414;
+  --paper: #f4f2ed;
+  --panel: #fbfaf7;
+  --panel-strong: #ebe8e0;
+  --panel-muted: #e1ded5;
+  --line: #d4d0c7;
+  --line-strong: #9b978e;
+  --text: #171716;
+  --muted: #62615c;
+  --soft: #89867e;
+  --primary: #1b1b1a;
+  --primary-strong: #000;
+  --cyan: #1b1b1a;
+  --amber: #b23a2e;
+  --rose: #b23a2e;
+  --success: #2f5c50;
+  --radius: 0;
+  --shadow: 0 10px 28px rgba(20,20,20,.06);
+  color-scheme: light;
+}
+html, body { background: var(--paper); }
+body { color: var(--text); font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+body::before, body::after { display: none !important; }
+.app-shell { grid-template-columns: 220px minmax(0,1fr); gap: 0; padding: 0; }
+.sidebar { height: 100vh; padding: 30px 20px; background: var(--ink) !important; border: 0; border-right: 1px solid #383838; border-radius: 0 !important; box-shadow: none !important; backdrop-filter: none !important; }
+.brand-lockup { color: var(--paper) !important; font-family: Georgia, serif; letter-spacing: .08em; }
+.brand-mark { width: 37px; height: 37px; color: var(--ink) !important; background: var(--paper) !important; border: 0 !important; border-radius: 50% !important; box-shadow: none !important; }
+.brand-mark svg { display: none; }
+.brand-mark::after { content: "龙"; font-size: 22px; }
+.side-nav { margin-top: 58px; gap: 1px; }
+.nav-item { color: #9c9a93 !important; border: 0 !important; border-left: 2px solid transparent !important; border-radius: 0 !important; }
+.nav-item:hover, .nav-item.is-active { color: #fff !important; background: rgba(255,255,255,.08) !important; border-left-color: #d9b0a8 !important; }
+.nav-item.is-active svg { color: #d9b0a8 !important; }
+.side-footnote { color: #85827b; border-top-color: rgba(255,255,255,.16); }
+.app-main { padding: 24px clamp(24px,5vw,76px) 64px; }
+.topbar { min-height: 56px; padding: 0 0 17px; margin-bottom: 30px; background: transparent !important; border: 0; border-bottom: 1px solid var(--line); border-radius: 0 !important; box-shadow: none !important; backdrop-filter: none !important; }
+.mobile-brand .brand-mark { color: var(--paper) !important; background: var(--ink) !important; }
+.mobile-brand .brand-mark::after { color: var(--paper); }
+.page-heading h1, .view-intro h2, .surface-heading h2, .article-heading h2 { color: var(--text) !important; font-family: Georgia, serif; font-weight: 500; }
+.eyebrow, .section-kicker { color: var(--soft) !important; letter-spacing: .12em; text-transform: uppercase; }
+.streak-counter, .theme-toggle, .icon-button { color: var(--text) !important; background: transparent !important; border: 1px solid var(--line-strong) !important; border-radius: 50% !important; box-shadow: none !important; }
+.streak-counter { border-radius: 0 !important; }
+.icon-button:hover, .theme-toggle:hover { color: var(--amber) !important; background: transparent !important; border-color: var(--amber) !important; }
+.tool-surface, .study-card, .study-hero, .home-panel, .manual-sheet, .word-sheet { background: var(--panel) !important; border: 1px solid var(--line) !important; border-radius: 0 !important; box-shadow: var(--shadow) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.study-hero { background: var(--ink) !important; color: var(--paper); border-color: var(--ink) !important; box-shadow: none !important; }
+.study-hero h2, .study-hero p, .study-toolbar h3 { color: var(--paper) !important; }
+.study-eyebrow { color: #d9b0a8 !important; }
+.study-stat { background: transparent !important; border: 0; border-left: 1px solid rgba(255,255,255,.22); border-radius: 0; }
+.study-stat span { color: #9c9a93 !important; }
+.study-stat strong { color: var(--paper) !important; }
+.prompt-panel { background: var(--panel-strong) !important; border: 1px solid var(--line) !important; border-radius: 0 !important; box-shadow: none !important; }
+.prompt-panel h3, .answer-definition { color: var(--text) !important; }
+.prompt-panel blockquote, .study-toolbar p, .write-tools span { color: var(--muted) !important; }
+.prompt-hint span, .mode-switch, .mode-switch button { background: transparent !important; border-radius: 0 !important; }
+.mode-switch { border-color: var(--line-strong) !important; }
+.mode-switch button.is-active { color: var(--paper) !important; background: var(--ink) !important; box-shadow: none !important; }
+.study-progress-track { background: var(--panel-strong) !important; border-radius: 0 !important; }
+.study-progress-fill { background: var(--amber) !important; box-shadow: none !important; border-radius: 0 !important; }
+textarea, input, select, .handwriting-wrap, .keyboard-answer { color: var(--text) !important; background: #fffdfa !important; border: 1px solid var(--line-strong) !important; border-radius: 0 !important; box-shadow: none !important; }
+textarea:focus, input:focus, select:focus, .keyboard-answer:focus { border-color: var(--amber) !important; box-shadow: 0 0 0 3px rgba(178,58,46,.1) !important; }
+.primary-button { color: #fff !important; background: var(--ink) !important; border: 1px solid var(--ink) !important; border-radius: 0 !important; box-shadow: none !important; }
+.primary-button:hover { background: #333 !important; }
+.secondary-button { color: var(--text) !important; background: transparent !important; border: 1px solid var(--line-strong) !important; border-radius: 0 !important; box-shadow: none !important; }
+.secondary-button:hover { color: var(--amber) !important; background: transparent !important; border-color: var(--amber) !important; }
+.word-chip { color: var(--text) !important; background: transparent !important; border: 1px solid var(--line-strong) !important; border-radius: 0 !important; }
+.word-highlight { color: var(--amber) !important; border-bottom-color: var(--amber) !important; }
+.calendar-day, .week-dot { border-radius: 0 !important; }
+.calendar-day.has-session, .week-day.is-complete .week-dot { color: #fff !important; background: var(--ink) !important; border-color: var(--ink) !important; }
+.article-body { color: #383733 !important; font-family: Georgia, serif; }
+.context-note, .explanation-note { background: var(--panel-strong) !important; border-color: var(--line) !important; border-radius: 0 !important; }
+.toast { color: #fff !important; background: var(--ink) !important; border-radius: 0 !important; box-shadow: none !important; }
+.home-view { min-height: calc(100vh - 110px); padding: 18px 0 50px; background: transparent; }
+.home-view::before { display: none !important; }
+.home-kicker { color: var(--amber) !important; }
+.home-view h2 { color: var(--text) !important; font-family: Georgia, serif; font-weight: 500; letter-spacing: -.055em; }
+.home-view h2 span { color: var(--amber) !important; }
+.home-lede { color: var(--muted) !important; }
+.home-meta { color: var(--soft) !important; border-top-color: var(--line) !important; }
+.home-meta svg { color: var(--amber) !important; }
+.home-panel { padding: 16px 0; background: transparent !important; border: 0 !important; border-top: 2px solid var(--ink) !important; box-shadow: none !important; }
+.home-panel h3 { color: var(--text) !important; font-family: Georgia, serif; font-weight: 500; }
+.home-panel p { color: var(--muted) !important; }
+.changelog-item time { color: var(--amber) !important; }
+.collapsed-settings summary { color: var(--amber) !important; }
+[data-theme="dark"] { --paper: #141414; --panel: #1d1d1b; --panel-strong: #272724; --line: #40403b; --line-strong: #74736c; --text: #f0eee8; --muted: #b2afa7; --soft: #8c8981; --ink: #f0eee8; --amber: #db796b; color-scheme: dark; }
+[data-theme="dark"] body, [data-theme="dark"] html { background: #141414; }
+[data-theme="dark"] .sidebar { background: #090909 !important; }
+[data-theme="dark"] .brand-mark { color: #141414 !important; background: #f0eee8 !important; }
+[data-theme="dark"] .topbar { border-bottom-color: var(--line); }
+[data-theme="dark"] .tool-surface, [data-theme="dark"] .study-card, [data-theme="dark"] .home-panel, [data-theme="dark"] .manual-sheet, [data-theme="dark"] .word-sheet { background: var(--panel) !important; }
+[data-theme="dark"] .study-hero { color: #141414; background: #f0eee8 !important; border-color: #f0eee8 !important; }
+[data-theme="dark"] .study-hero h2, [data-theme="dark"] .study-hero p, [data-theme="dark"] .study-toolbar h3, [data-theme="dark"] .study-stat strong { color: #141414 !important; }
+[data-theme="dark"] .study-eyebrow { color: #9e3b30 !important; }
+[data-theme="dark"] .study-stat { border-left-color: rgba(20,20,20,.22); }
+[data-theme="dark"] .study-stat span { color: #5d5a54 !important; }
+[data-theme="dark"] .prompt-panel { background: #272724 !important; }
+[data-theme="dark"] textarea, [data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] .handwriting-wrap, [data-theme="dark"] .keyboard-answer { background: #161616 !important; }
+[data-theme="dark"] .primary-button { color: #141414 !important; background: #f0eee8 !important; border-color: #f0eee8 !important; }
+[data-theme="dark"] .primary-button:hover { background: #fff !important; }
+[data-theme="dark"] .secondary-button { color: var(--text) !important; }
+[data-theme="dark"] .home-view h2, [data-theme="dark"] .page-heading h1, [data-theme="dark"] .view-intro h2, [data-theme="dark"] .surface-heading h2 { color: var(--text) !important; }
+@media (max-width: 680px) { .app-shell { display: block; } .sidebar { display: none; } .app-main { padding: 17px 18px 96px; } .home-view { min-height: auto; padding-top: 28px; } .home-view h2 { font-size: clamp(54px,17vw,82px); } .home-lower { grid-template-columns: 1fr; } }
+
 /* Liquid glass material system */
 :root {
   --canvas: #071019;
@@ -503,9 +713,11 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
         </div>
 
         <nav class="side-nav" aria-label="应用页面">
-          <button class="nav-item is-active" type="button" data-view-target="learn">
+          <button class="nav-item is-active" type="button" data-view-target="home"><i data-lucide="home"></i><span>主页</span></button>
+          <button class="nav-item" type="button" data-view-target="learn">
             <i data-lucide="book-open"></i><span>学习</span>
           </button>
+          <button class="nav-item" type="button" data-view-target="reading"><i data-lucide="book-open-text"></i><span>阅读</span></button>
           <button class="nav-item" type="button" data-view-target="calendar">
             <i data-lucide="calendar-days"></i><span>日历</span>
           </button>
@@ -546,7 +758,24 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
           </div>
         </header>
 
-        <section class="view is-active" data-view="learn" aria-labelledby="learn-heading">
+        <section class="view is-active" data-view="home" aria-labelledby="home-heading">
+          <div class="home-view">
+            <p class="home-kicker">龙 · 主动回忆学习</p>
+            <h2 id="home-heading">今天，<br /><span>记住一个词。</span></h2>
+            <p class="home-lede">没有猜题，没有噪音。先从记忆里取出来，再让它在句子里留下痕迹。</p>
+            <div class="home-actions"><button class="primary-button home-action" type="button" data-view-target="learn"><i data-lucide="pen-line"></i><span>开始背单词</span></button><button class="secondary-button home-action secondary" type="button" data-view-target="reading"><i data-lucide="book-open-text"></i><span>生成情境阅读</span></button></div>
+            <div class="home-meta"><span><i data-lucide="brain"></i>主动回忆</span><span><i data-lucide="pencil-line"></i>手写或输入</span><span><i data-lucide="shield-check"></i>本机保存</span></div>
+            <div class="home-lower"><div class="home-panel"><h3>今天的节奏</h3><p>每天的新词数量可以随时调整。完成一组，再决定是否继续。</p></div><div class="home-panel"><h3>更新日志</h3><div class="changelog-list"><div class="changelog-item"><time>2026-08-31 20:18:00</time><div><strong>黑白编辑部</strong><br />重做主页与学习工作区。</div></div><div class="changelog-item"><time>2026-08-31 19:20:42</time><div><strong>词库就绪</strong><br />完成 4530 个去重词条解析。</div></div></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" data-view="reading" aria-labelledby="reading-heading">
+          <div class="view-intro"><div><p class="eyebrow">副功能</p><h2 id="reading-heading">情境阅读</h2><p>把今天背过的单词放进一篇短文里，再遇见一次。</p></div></div>
+          <section class="input-surface tool-surface" aria-labelledby="reading-tool-heading"><div class="surface-heading"><div><p class="section-kicker">阅读生成器</p><h2 id="reading-tool-heading">输入单词</h2></div><span class="word-count" id="reading-word-count">0 个</span></div><div class="textarea-wrap"><textarea id="reading-word-input" rows="4" placeholder="resilient, catalyst, subtle, emerge"></textarea></div><div class="generation-footer"><p class="privacy-line"><i data-lucide="sparkles"></i>AI 只用于生成阅读</p><div class="generation-actions"><button class="primary-button" type="button" id="reading-generate-button"><i data-lucide="wand-sparkles"></i><span>生成情境短文</span></button></div></div></section>
+          <article class="reader-surface tool-surface" style="margin-top:20px"><div class="article-heading"><div><p class="section-kicker">今日短文</p><h2 id="reading-article-title">The Quiet Catalyst</h2></div></div><div class="article-body" id="reading-article-body"><p>完成今天的背词后，在这里生成一篇包含目标词的短文。</p></div></article>
+        </section>
+
+        <section class="view" data-view="learn" aria-labelledby="learn-heading">
           <h2 class="sr-only" id="learn-heading">今日学习</h2>
           <div class="learn-grid">
             <div class="learn-primary">
@@ -786,7 +1015,9 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
     </div>
 
     <nav class="mobile-nav" aria-label="移动端导航">
-      <button class="mobile-nav-item is-active" type="button" data-view-target="learn"><i data-lucide="book-open"></i><span>学习</span></button>
+      <button class="mobile-nav-item is-active" type="button" data-view-target="home"><i data-lucide="home"></i><span>主页</span></button>
+      <button class="mobile-nav-item" type="button" data-view-target="learn"><i data-lucide="book-open"></i><span>学习</span></button>
+      <button class="mobile-nav-item" type="button" data-view-target="reading"><i data-lucide="book-open-text"></i><span>阅读</span></button>
       <button class="mobile-nav-item" type="button" data-view-target="calendar"><i data-lucide="calendar-days"></i><span>日历</span></button>
       <button class="mobile-nav-item" type="button" data-view-target="settings"><i data-lucide="sliders-horizontal"></i><span>设置</span></button>
     </nav>
@@ -1350,7 +1581,7 @@ function closeManual() {
 }
 
 function switchView(view) {
-  const labels = { learn: ["持续学习", "今日学习"], calendar: ["学习档案", "学习日历"], settings: ["本机模型", "模型设置"] };
+  const labels = { home: ["龙", "欢迎回来"], learn: ["持续学习", "今日背词"], reading: ["副功能", "情境阅读"], calendar: ["学习档案", "学习日历"], settings: ["本机模型", "模型设置"] };
   document.querySelectorAll(".view").forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
   document.querySelectorAll("[data-view-target]").forEach((item) => item.classList.toggle("is-active", item.dataset.viewTarget === view));
   [elements.pageKicker.textContent, elements.pageTitle.textContent] = labels[view];
@@ -1789,6 +2020,14 @@ function init() {
   renderAll();
   bindEvents();
   refreshIcons();
+  document.querySelector("#reading-generate-button")?.addEventListener("click", () => {
+    const words = parseWords(document.querySelector("#reading-word-input").value);
+    document.querySelector("#reading-word-count").textContent = `${words.length} 个`;
+    if (!words.length) { showToast("先输入至少一个英文单词。"); return; }
+    document.querySelector("#word-input").value = words.join(", ");
+    activeWords = words;
+    generate();
+  });
   document.addEventListener("pointermove", (event) => { document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`); document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`); }, { passive: true });
 }
 
