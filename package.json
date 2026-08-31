@@ -9,6 +9,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
+    "shadcn": "^4.19.1",
     "wrangler": "^4.27.0"
   }
 }
