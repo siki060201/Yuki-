@@ -2262,39 +2262,42 @@ function bindEvents() {
     if (target.classList.contains("word-highlight")) { openWordSheet(target.dataset.word, activeSession); }
   });
 
-  elements.wordInput.addEventListener("input", () => {
+  elements.wordInput?.addEventListener("input", () => {
     activeWords = parseWords(elements.wordInput.value);
     renderWordInput(activeWords);
   });
-  document.querySelector("#clear-words").addEventListener("click", () => syncInput([]));
-  document.querySelector("#new-reading-button").addEventListener("click", startNewReading);
-  document.querySelector("#generate-button").addEventListener("click", generate);
-  document.querySelector("#reading-generate-button").addEventListener("click", () => {
+  document.querySelector("#clear-words")?.addEventListener("click", () => syncInput([]));
+  document.querySelector("#new-reading-button")?.addEventListener("click", startNewReading);
+  document.querySelector("#generate-button")?.addEventListener("click", generate);
+  document.querySelector("#reading-generate-button")?.addEventListener("click", () => {
     const words = parseWords(document.querySelector("#reading-word-input").value);
     if (!words.length) { showToast("先输入至少一个英文单词。"); return; }
     document.querySelector("#word-input").value = words.join(", ");
     activeWords = words;
-    document.querySelector("#genre-select").value = document.querySelector("#reading-genre-select").value;
-    document.querySelector("#difficulty-select").value = document.querySelector("#reading-difficulty-select").value;
-    document.querySelector("#article-length-select").value = document.querySelector("#reading-length-select").value;
+    const readingGenre = document.querySelector("#reading-genre-select");
+    const readingDifficulty = document.querySelector("#reading-difficulty-select");
+    const readingLength = document.querySelector("#reading-length-select");
+    if (readingGenre && document.querySelector("#genre-select")) document.querySelector("#genre-select").value = readingGenre.value;
+    if (readingDifficulty && document.querySelector("#difficulty-select")) document.querySelector("#difficulty-select").value = readingDifficulty.value;
+    if (readingLength && document.querySelector("#article-length-select")) document.querySelector("#article-length-select").value = readingLength.value;
     generate();
   });
-  document.querySelector("#copy-extraction-prompt").addEventListener("click", copyExtractionPrompt);
-  document.querySelector("#copy-button").addEventListener("click", copySession);
-  document.querySelector("#export-button").addEventListener("click", exportSession);
-  document.querySelector("#daily-goal-select").addEventListener("change", (event) => { studyGoal = Number(event.target.value); studyIndex = 0; studyAnswerVisible = false; localStorage.setItem("lexora.study.goal", String(studyGoal)); resetHandwriting(); renderStudy(); });
+  document.querySelector("#copy-extraction-prompt")?.addEventListener("click", copyExtractionPrompt);
+  document.querySelector("#copy-button")?.addEventListener("click", copySession);
+  document.querySelector("#export-button")?.addEventListener("click", exportSession);
+  document.querySelector("#daily-goal-select")?.addEventListener("change", (event) => { studyGoal = Number(event.target.value); studyIndex = 0; studyAnswerVisible = false; localStorage.setItem("lexora.study.goal", String(studyGoal)); resetHandwriting(); renderStudy(); });
   document.querySelectorAll("[data-input-mode]").forEach((button) => button.addEventListener("click", () => setStudyMode(button.dataset.inputMode)));
-  document.querySelector("#reveal-answer").addEventListener("click", revealStudyAnswer);
+  document.querySelector("#reveal-answer")?.addEventListener("click", revealStudyAnswer);
   document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => rateStudy(button.dataset.rating)));
-  document.querySelector("#next-word").addEventListener("click", () => rateStudy("hard"));
-  document.querySelector("#restart-study").addEventListener("click", () => { studyIndex = 0; studyAnswerVisible = false; resetHandwriting(); renderStudy(); });
-  document.querySelector("#clear-handwriting").addEventListener("click", resetHandwriting);
-  document.querySelector("#clear-keyboard").addEventListener("click", () => { document.querySelector("#keyboard-answer").value = ""; document.querySelector("#keyboard-answer").focus(); });
+  document.querySelector("#next-word")?.addEventListener("click", () => rateStudy("hard"));
+  document.querySelector("#restart-study")?.addEventListener("click", () => { studyIndex = 0; studyAnswerVisible = false; resetHandwriting(); renderStudy(); });
+  document.querySelector("#clear-handwriting")?.addEventListener("click", resetHandwriting);
+  document.querySelector("#clear-keyboard")?.addEventListener("click", () => { const input = document.querySelector("#keyboard-answer"); if (input) { input.value = ""; input.focus(); } });
   const canvas = document.querySelector("#handwriting-canvas");
-  canvas.addEventListener("pointerdown", (event) => { drawing = true; lastPoint = null; canvas.setPointerCapture(event.pointerId); paintPoint(event); });
-  canvas.addEventListener("pointermove", paintPoint);
-  ["pointerup", "pointercancel", "pointerleave"].forEach((name) => canvas.addEventListener(name, () => { drawing = false; lastPoint = null; }));
-  document.querySelector("#theme-toggle").addEventListener("click", () => {
+  canvas?.addEventListener("pointerdown", (event) => { drawing = true; lastPoint = null; canvas.setPointerCapture(event.pointerId); paintPoint(event); });
+  canvas?.addEventListener("pointermove", paintPoint);
+  ["pointerup", "pointercancel", "pointerleave"].forEach((name) => canvas?.addEventListener(name, () => { drawing = false; lastPoint = null; }));
+  document.querySelector("#theme-toggle")?.addEventListener("click", () => {
     const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = nextTheme;
     localStorage.setItem("lexora.theme", nextTheme);
@@ -2304,29 +2307,29 @@ function bindEvents() {
   document.querySelector("#pomodoro-toggle")?.addEventListener("click", togglePomodoro);
   document.querySelector("#pomodoro-reset")?.addEventListener("click", resetPomodoro);
   document.querySelector("#pomodoro-mode")?.addEventListener("click", togglePomodoroMode);
-  document.querySelector("#close-sheet").addEventListener("click", closeWordSheet);
-  elements.sheetBackdrop.addEventListener("click", closeWordSheet);
-  document.querySelector("#open-manual").addEventListener("click", openManual);
-  document.querySelector("#close-manual").addEventListener("click", closeManual);
-  elements.manualBackdrop.addEventListener("click", closeManual);
+  document.querySelector("#close-sheet")?.addEventListener("click", closeWordSheet);
+  elements.sheetBackdrop?.addEventListener("click", closeWordSheet);
+  document.querySelector("#open-manual")?.addEventListener("click", openManual);
+  document.querySelector("#close-manual")?.addEventListener("click", closeManual);
+  elements.manualBackdrop?.addEventListener("click", closeManual);
   document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeWordSheet(); closeManual(); } });
 
-  document.querySelector("#calendar-prev").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1); renderCalendar(storage.getSessions(), calendarMonth); });
-  document.querySelector("#calendar-next").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(storage.getSessions(), calendarMonth); });
+  document.querySelector("#calendar-prev")?.addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1); renderCalendar(storage.getSessions(), calendarMonth); });
+  document.querySelector("#calendar-next")?.addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(storage.getSessions(), calendarMonth); });
 
-  document.querySelector("#settings-form").addEventListener("submit", (event) => {
+  document.querySelector("#settings-form")?.addEventListener("submit", (event) => {
     event.preventDefault();
     saveSettingsFromForm();
     showToast("设置已保存在当前浏览器。 ");
   });
-  document.querySelector("#toggle-api-key").addEventListener("click", () => {
+  document.querySelector("#toggle-api-key")?.addEventListener("click", () => {
     const input = document.querySelector("#api-key");
     input.type = input.type === "password" ? "text" : "password";
     document.querySelector("#toggle-api-key").innerHTML = input.type === "password" ? '<i data-lucide="eye"></i>' : '<i data-lucide="eye-off"></i>';
     refreshIcons();
   });
-  document.querySelector("#paste-api-key").addEventListener("click", pasteApiKey);
-  document.querySelector("#test-connection").addEventListener("click", async () => {
+  document.querySelector("#paste-api-key")?.addEventListener("click", pasteApiKey);
+  document.querySelector("#test-connection")?.addEventListener("click", async () => {
     const button = document.querySelector("#test-connection");
     const settings = saveSettingsFromForm();
     button.disabled = true;
@@ -2389,14 +2392,6 @@ function init() {
   bindEvents();
   refreshIcons();
   renderPomodoro();
-  document.querySelector("#reading-generate-button")?.addEventListener("click", () => {
-    const words = parseWords(document.querySelector("#reading-word-input").value);
-    document.querySelector("#reading-word-count").textContent = `${words.length} 个`;
-    if (!words.length) { showToast("先输入至少一个英文单词。"); return; }
-    document.querySelector("#word-input").value = words.join(", ");
-    activeWords = words;
-    generate();
-  });
   document.addEventListener("pointermove", (event) => { document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`); document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`); }, { passive: true });
   startShowcaseDots();
 }
