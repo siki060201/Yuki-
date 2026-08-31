@@ -984,6 +984,106 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .view[data-view="home"].is-active { display: block !important; }
       .view:not([data-view="home"]) { scroll-margin-top: 110px; }
       @media (max-width: 760px) { .sidebar .side-nav { z-index: 101 !important; } .app-main > .topbar { z-index: 90 !important; } }
+
+      /* Theme repair: neutral graphite + warm gold, with an always-visible mode toggle. */
+      :root {
+        --ios-white: 248 249 252;
+        --ios-ink: 16 18 24;
+        --ios-mist: 220 224 232;
+        --ios-accent: 210 218 232;
+        --ios-sage: 150 158 176;
+        --ios-warm: 239 194 112;
+        --ios-line: rgb(var(--ios-white) / .2);
+        --ios-line-soft: rgb(var(--ios-white) / .11);
+        --ios-shadow: 0 28px 90px rgb(0 0 0 / .38);
+      }
+      [data-theme="dark"] {
+        --ios-white: 248 249 252;
+        --ios-ink: 16 18 24;
+        --ios-mist: 220 224 232;
+        --ios-accent: 210 218 232;
+        --ios-warm: 239 194 112;
+        --ios-line: rgb(var(--ios-white) / .2);
+        --ios-line-soft: rgb(var(--ios-white) / .11);
+      }
+      [data-theme="light"] {
+        --ios-white: 22 29 42;
+        --ios-ink: 246 247 250;
+        --ios-mist: 72 82 98;
+        --ios-accent: 57 69 91;
+        --ios-warm: 166 112 34;
+        --ios-line: rgb(22 29 42 / .18);
+        --ios-line-soft: rgb(22 29 42 / .11);
+        --ios-shadow: 0 24px 70px rgb(44 56 76 / .16);
+      }
+      html, body { background: #101218 !important; }
+      [data-theme="light"] body, [data-theme="light"] html { background: #eef1f5 !important; }
+      .app-main > .topbar { pointer-events: none !important; }
+      .app-main > .topbar .top-actions, .app-main > .topbar .top-actions * { pointer-events: auto !important; }
+      .app-main:has(.view[data-view="home"].is-active) .top-actions { visibility: visible !important; pointer-events: auto !important; }
+      .app-main:has(.view[data-view="home"].is-active) .theme-toggle { display: inline-grid !important; visibility: visible !important; }
+      .theme-toggle { color: rgb(var(--ios-white)) !important; background: rgb(0 0 0 / .24) !important; border-color: rgb(var(--ios-white) / .28) !important; }
+      [data-theme="light"] .theme-toggle { color: rgb(22 29 42) !important; background: rgb(255 255 255 / .5) !important; border-color: rgb(22 29 42 / .18) !important; }
+      .view:not([data-view="home"]) .tool-surface,
+      .view:not([data-view="home"]) .study-card,
+      .view:not([data-view="home"]) .study-hero,
+      .view:not([data-view="home"]) .settings-surface {
+        background: rgb(24 27 35 / .82) !important;
+        border-color: rgb(255 255 255 / .14) !important;
+        box-shadow: 0 24px 64px rgb(0 0 0 / .28) !important;
+      }
+      .view:not([data-view="home"]) .study-hero { background: rgb(30 34 44 / .9) !important; }
+      .view:not([data-view="home"]) .surface-heading h2,
+      .view:not([data-view="home"]) .view-intro h2,
+      .view:not([data-view="home"]) .article-heading h2,
+      .view:not([data-view="home"]) .study-toolbar h3,
+      .view:not([data-view="home"]) .study-toolbar strong,
+      .view:not([data-view="home"]) .answer-definition { color: #f8f9fc !important; }
+      .view:not([data-view="home"]) .section-kicker,
+      .view:not([data-view="home"]) .eyebrow,
+      .view:not([data-view="home"]) .study-toolbar p,
+      .view:not([data-view="home"]) .privacy-line,
+      .view:not([data-view="home"]) .history-empty,
+      .view:not([data-view="home"]) .study-progress-line { color: #aeb7c6 !important; }
+      .view:not([data-view="home"]) textarea,
+      .view:not([data-view="home"]) input,
+      .view:not([data-view="home"]) select,
+      .view:not([data-view="home"]) .handwriting-wrap,
+      .view:not([data-view="home"]) .keyboard-answer { color: #f8f9fc !important; background: rgb(10 12 17 / .56) !important; border-color: rgb(255 255 255 / .18) !important; }
+      .view:not([data-view="home"]) .primary-button { color: #11141b !important; background: #e9edf5 !important; border-color: rgb(255 255 255 / .4) !important; }
+      .view:not([data-view="home"]) .secondary-button { color: #f8f9fc !important; background: rgb(255 255 255 / .07) !important; border-color: rgb(255 255 255 / .16) !important; }
+      .view:not([data-view="home"]) .mode-switch { background: rgb(0 0 0 / .22) !important; border-color: rgb(255 255 255 / .16) !important; }
+      .view:not([data-view="home"]) .mode-switch button.is-active { color: #11141b !important; background: #e9edf5 !important; }
+      .view:not([data-view="home"]) .prompt-panel { background: rgb(39 44 56 / .82) !important; border-color: rgb(255 255 255 / .16) !important; }
+      .view:not([data-view="home"]) .prompt-panel h3 { color: #f8f9fc !important; }
+      .view:not([data-view="home"]) .prompt-panel blockquote { color: #c0c8d5 !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .tool-surface,
+      [data-theme="light"] .view:not([data-view="home"]) .study-card,
+      [data-theme="light"] .view:not([data-view="home"]) .study-hero,
+      [data-theme="light"] .view:not([data-view="home"]) .settings-surface { background: rgb(255 255 255 / .72) !important; border-color: rgb(22 29 42 / .13) !important; box-shadow: 0 24px 64px rgb(44 56 76 / .12) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .study-hero { background: rgb(255 255 255 / .82) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .surface-heading h2,
+      [data-theme="light"] .view:not([data-view="home"]) .view-intro h2,
+      [data-theme="light"] .view:not([data-view="home"]) .article-heading h2,
+      [data-theme="light"] .view:not([data-view="home"]) .study-toolbar h3,
+      [data-theme="light"] .view:not([data-view="home"]) .study-toolbar strong,
+      [data-theme="light"] .view:not([data-view="home"]) .answer-definition { color: #172033 !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .section-kicker,
+      [data-theme="light"] .view:not([data-view="home"]) .eyebrow,
+      [data-theme="light"] .view:not([data-view="home"]) .study-toolbar p,
+      [data-theme="light"] .view:not([data-view="home"]) .privacy-line,
+      [data-theme="light"] .view:not([data-view="home"]) .history-empty,
+      [data-theme="light"] .view:not([data-view="home"]) .study-progress-line { color: #617089 !important; }
+      [data-theme="light"] .view:not([data-view="home"]) textarea,
+      [data-theme="light"] .view:not([data-view="home"]) input,
+      [data-theme="light"] .view:not([data-view="home"]) select,
+      [data-theme="light"] .view:not([data-view="home"]) .handwriting-wrap,
+      [data-theme="light"] .view:not([data-view="home"]) .keyboard-answer { color: #172033 !important; background: rgb(255 255 255 / .84) !important; border-color: rgb(22 29 42 / .18) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .primary-button { color: #fff !important; background: #172033 !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .secondary-button { color: #172033 !important; background: rgb(22 29 42 / .05) !important; border-color: rgb(22 29 42 / .18) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .prompt-panel { background: rgb(238 242 247 / .95) !important; border-color: rgb(22 29 42 / .13) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .prompt-panel h3 { color: #172033 !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .prompt-panel blockquote { color: #617089 !important; }
     </style>
   </head>
 <body>
