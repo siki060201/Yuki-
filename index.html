@@ -397,6 +397,38 @@ body::before, body::after { display: none; }
 @media (max-width: 920px) { .showcase-page { grid-template-columns: 1fr; gap: 38px; align-content: center; } .showcase-window { min-height: 340px; } .window-body { min-height: 298px; } .showcase-caption { margin-top: 0; } }
 @media (max-width: 560px) { .showcase-page { min-height: auto; padding-top: 24px; } .showcase-window { min-height: 300px; } .window-body { grid-template-columns: 82px 1fr; min-height: 258px; } .window-side { padding: 16px 11px; } .window-side strong { font-size: 38px; } .window-main { padding: 28px 20px; } .window-main h3 { font-size: 32px; } }
 
+/* Study Haven-inspired focus room */
+.haven-home { position: relative; min-height: calc(100vh - 112px); margin: -8px clamp(-76px, -5vw, -24px) -64px; padding: 70px clamp(24px, 7vw, 96px) 60px; overflow: hidden; background: #111a18; color: #f6f5ee; }
+.haven-scene { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 73% 25%, rgba(219,185,121,.25), transparent 16%), linear-gradient(135deg, #162422 0%, #1d342f 40%, #0d1515 100%); }
+.haven-scene::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.55), transparent 53%, rgba(0,0,0,.26)), linear-gradient(180deg, rgba(2,7,7,.08), rgba(2,7,7,.1) 54%, rgba(2,7,7,.7)); }
+.scene-window { position: absolute; top: 9%; right: 5%; width: 53%; height: 58%; border: 1px solid rgba(218,240,226,.2); box-shadow: inset 0 0 70px rgba(136,224,184,.08), 0 0 0 18px rgba(5,12,11,.08); transform: perspective(800px) rotateY(-10deg); }
+.scene-window::before, .scene-window::after { content: ""; position: absolute; background: rgba(212,238,221,.12); }
+.scene-window::before { top: 0; bottom: 0; left: 50%; width: 1px; }
+.scene-window::after { top: 50%; right: 0; left: 0; height: 1px; }
+.scene-moon { position: absolute; top: 13%; right: 23%; width: 68px; height: 68px; border-radius: 50%; background: #f0d7a5; box-shadow: 0 0 80px rgba(240,215,165,.42); }
+.scene-desk { position: absolute; right: -5%; bottom: 9%; width: 74%; height: 20%; background: linear-gradient(180deg, #3d2b20, #1c1715); transform: perspective(700px) rotateX(60deg) rotateZ(-2deg); box-shadow: 0 -20px 40px rgba(0,0,0,.26); }
+.scene-lamp { position: absolute; right: 22%; bottom: 29%; width: 90px; height: 90px; border-radius: 50%; background: rgba(242,201,127,.34); filter: blur(22px); }
+.haven-home-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; max-width: 650px; min-height: calc(100vh - 230px); justify-content: center; }
+.haven-eyebrow { margin: 0 0 18px; color: #c4decf; font: 11px/1 monospace; letter-spacing: .18em; }
+.haven-home h2 { max-width: 680px; margin: 0; color: #fbfaf3; font: 500 clamp(39px,5.2vw,72px)/1.05 Georgia,serif; letter-spacing: -.04em; }
+.haven-home h2 span { color: #d8e7d2; }
+.haven-lede { max-width: 460px; margin: 20px 0 0; color: rgba(229,239,230,.72); font-size: 15px; line-height: 1.75; }
+.pomodoro-panel { width: min(430px,100%); margin-top: 30px; padding: 20px 22px 22px; background: rgba(10,17,16,.52); border: 1px solid rgba(231,247,237,.22); border-radius: 14px; box-shadow: 0 24px 65px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.14); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.pomodoro-topline { display: flex; justify-content: space-between; color: rgba(220,237,225,.68); font: 10px/1 monospace; letter-spacing: .1em; }
+.pomodoro-time { margin-top: 19px; color: #fffdf5; font: 500 clamp(63px,8vw,92px)/.92 Inter,ui-sans-serif,sans-serif; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.pomodoro-progress { height: 4px; margin-top: 22px; overflow: hidden; background: rgba(255,255,255,.13); border-radius: 99px; }
+.pomodoro-progress span { display: block; width: 0%; height: 100%; background: #cde9d1; border-radius: inherit; transition: width .2s linear; }
+.pomodoro-controls { display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.pomodoro-main { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 17px; color: #13201a; background: #e7f2df; border: 1px solid rgba(255,255,255,.48); border-radius: 9px; font-size: 13px; font-weight: 800; box-shadow: 0 8px 24px rgba(213,240,215,.15); }
+.pomodoro-main:hover { background: #fffef3; }
+.pomodoro-main svg, .pomodoro-icon svg { width: 16px; }
+.pomodoro-icon { display: inline-grid; place-items: center; width: 42px; height: 42px; color: #e8f3e9; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.2); border-radius: 9px; }
+.pomodoro-icon:hover { background: rgba(255,255,255,.17); }
+.haven-note { display: flex; align-items: flex-start; gap: 12px; margin-top: 27px; color: rgba(229,239,230,.7); }
+.haven-note > span { color: #d6a875; font: 11px/1 monospace; }
+.haven-note p { margin: 0; font-size: 12px; line-height: 1.7; }
+@media (max-width: 760px) { .haven-home { margin: -8px -18px -96px; padding: 42px 20px 110px; } .haven-home-content { min-height: calc(100vh - 180px); } .scene-window { top: 4%; right: -18%; width: 82%; height: 43%; opacity: .52; } .scene-desk { bottom: 15%; width: 100%; } .scene-moon { right: 25%; } .pomodoro-panel { margin-top: 25px; } }
+
 /* Showcase landing page: static presentation only. */
 .showcase-page { position: relative; display: grid; grid-template-columns: minmax(0,.84fr) minmax(420px,1.16fr); gap: clamp(36px,7vw,110px); align-items: center; min-height: calc(100vh - 115px); overflow: hidden; }
 .showcase-dots { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .42; }
@@ -776,6 +808,163 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
 @media (max-width: 800px) { .study-hero { grid-template-columns: 1fr; } .study-stats { min-width: 0; } .recall-zone { grid-template-columns: 1fr; } .answer-panel { min-height: 0; } }
 @media (max-width: 560px) { .study-toolbar { align-items: stretch; flex-direction: column; } .study-controls { justify-content: space-between; flex-wrap: wrap; } .feedback-row { grid-template-columns: 1fr; } .study-hero h2 { font-size: 30px; } }
 
+      /* Final shared room skin */
+      .app-main { background: transparent; }
+      .app-main:has(.view[data-view="home"].is-active) .top-actions { visibility: visible; pointer-events: auto; }
+      .app-main:has(.view[data-view="home"].is-active) .streak-counter,
+      .app-main:has(.view[data-view="home"].is-active) #open-manual,
+      .app-main:has(.view[data-view="home"].is-active) [data-view-target="settings"] { display: none; }
+      .brand-mark::after { display: none !important; }
+      .brand-name { display: grid; gap: 3px; }
+      .brand-name strong { font: 700 21px/1 Georgia, serif; letter-spacing: .06em; }
+      .brand-name small { color: #89918a; font: 8px/1 monospace; letter-spacing: .13em; }
+      .haven-home { isolation: isolate; }
+      .haven-home-content { animation: havenRise .8s cubic-bezier(.2,.8,.2,1) both; }
+      .pomodoro-panel { animation: havenRise .8s .1s cubic-bezier(.2,.8,.2,1) both; }
+      @keyframes havenRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      .view:not([data-view="home"]) .tool-surface,
+      .view:not([data-view="home"]) .study-card,
+      .view:not([data-view="home"]) .study-hero { background: rgba(25, 35, 33, .78) !important; border-color: rgba(231,247,237,.16) !important; color: #f5f3ea; box-shadow: 0 22px 60px rgba(0,0,0,.22) !important; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+      .view:not([data-view="home"]) .surface-heading h2,
+      .view:not([data-view="home"]) .view-intro h2,
+      .view:not([data-view="home"]) .article-heading h2,
+      .view:not([data-view="home"]) .study-toolbar h3 { color: #f5f3ea !important; }
+      .view:not([data-view="home"]) .section-kicker,
+      .view:not([data-view="home"]) .eyebrow,
+      .view:not([data-view="home"]) .study-toolbar p,
+      .view:not([data-view="home"]) .privacy-line,
+      .view:not([data-view="home"]) .history-empty { color: rgba(229,239,230,.68) !important; }
+      .view:not([data-view="home"]) textarea,
+      .view:not([data-view="home"]) input,
+      .view:not([data-view="home"]) select { color: #f5f3ea !important; background: rgba(8,14,13,.48) !important; border-color: rgba(231,247,237,.2) !important; }
+      .view:not([data-view="home"]) .primary-button { color: #152019 !important; background: #e4f0dd !important; border-color: rgba(255,255,255,.45) !important; }
+      .view:not([data-view="home"]) .secondary-button { color: #f5f3ea !important; background: rgba(255,255,255,.07) !important; border-color: rgba(231,247,237,.22) !important; }
+      [data-theme="light"] .haven-home { background: #dfe9e4; color: #163029; }
+      [data-theme="light"] .haven-scene { background: radial-gradient(circle at 73% 25%, rgba(215,170,90,.34), transparent 16%), linear-gradient(135deg,#b8d3c8 0%,#dce8df 52%,#a7bbb2 100%); }
+      [data-theme="light"] .haven-scene::before { background: linear-gradient(90deg,rgba(255,255,255,.12),transparent 53%,rgba(15,54,43,.12)), linear-gradient(180deg,rgba(255,255,255,.05),transparent 54%,rgba(39,68,57,.22)); }
+      [data-theme="light"] .scene-window { border-color: rgba(35,76,62,.2); box-shadow: inset 0 0 70px rgba(255,255,255,.18),0 0 0 18px rgba(255,255,255,.08); }
+      [data-theme="light"] .scene-window::before, [data-theme="light"] .scene-window::after { background: rgba(35,76,62,.13); }
+      [data-theme="light"] .scene-moon { background: #fff0bf; box-shadow: 0 0 80px rgba(255,237,184,.7); }
+      [data-theme="light"] .haven-home h2 { color: #17332b !important; }
+      [data-theme="light"] .haven-home h2 span { color: #2f5c50 !important; }
+      [data-theme="light"] .haven-eyebrow { color: #2f5c50 !important; }
+      [data-theme="light"] .haven-lede, [data-theme="light"] .haven-note { color: #3e6157 !important; }
+      [data-theme="light"] .pomodoro-panel { background: rgba(255,255,255,.46); border-color: rgba(38,83,68,.2); box-shadow: 0 24px 65px rgba(49,79,67,.15),inset 0 1px 0 rgba(255,255,255,.72); }
+      [data-theme="light"] .pomodoro-topline, [data-theme="light"] .window-ghost { color: #527267; }
+      [data-theme="light"] .pomodoro-time { color: #17332b; }
+      [data-theme="light"] .pomodoro-progress { background: rgba(35,76,62,.14); }
+      [data-theme="light"] .pomodoro-progress span { background: #2f5c50; }
+      [data-theme="light"] .pomodoro-main { color: #f7fbf3; background: #2f5c50; }
+      [data-theme="light"] .pomodoro-icon { color: #2f5c50; background: rgba(255,255,255,.42); border-color: rgba(38,83,68,.2); }
+      [data-theme="light"] .view:not([data-view="home"]) .tool-surface,
+      [data-theme="light"] .view:not([data-view="home"]) .study-card,
+      [data-theme="light"] .view:not([data-view="home"]) .study-hero { background: rgba(255,255,255,.72) !important; color: #17332b; border-color: rgba(32,73,60,.16) !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .surface-heading h2,
+      [data-theme="light"] .view:not([data-view="home"]) .view-intro h2,
+      [data-theme="light"] .view:not([data-view="home"]) .article-heading h2,
+      [data-theme="light"] .view:not([data-view="home"]) .study-toolbar h3 { color: #17332b !important; }
+      [data-theme="light"] .view:not([data-view="home"]) .section-kicker,
+      [data-theme="light"] .view:not([data-view="home"]) .eyebrow,
+      [data-theme="light"] .view:not([data-view="home"]) .study-toolbar p,
+      [data-theme="light"] .view:not([data-view="home"]) .privacy-line,
+      [data-theme="light"] .view:not([data-view="home"]) .history-empty { color: #5a786d !important; }
+      [data-theme="light"] .view:not([data-view="home"]) textarea,
+      [data-theme="light"] .view:not([data-view="home"]) input,
+      [data-theme="light"] .view:not([data-view="home"]) select { color: #17332b !important; background: rgba(255,255,255,.78) !important; border-color: rgba(32,73,60,.2) !important; }
+      @media (max-width: 760px) { .topbar { position: relative; } .haven-home { margin: -8px -18px -96px; } }
+
+      /* Study Haven / iOS-inspired interface direction. This layer replaces the legacy layout skin. */
+      :root {
+        --ios-white: 255 255 255;
+        --ios-ink: 13 18 16;
+        --ios-mist: 226 237 230;
+        --ios-accent: 197 229 213;
+        --ios-sage: 132 165 148;
+        --ios-warm: 239 215 169;
+        --ios-danger: 255 174 163;
+        --ios-line: rgb(var(--ios-white) / .22);
+        --ios-line-soft: rgb(var(--ios-white) / .12);
+        --ios-glass: rgb(var(--ios-white) / .105);
+        --ios-glass-strong: rgb(var(--ios-white) / .16);
+        --ios-shadow: 0 28px 90px rgb(0 0 0 / .42);
+      }
+      html, body { min-height: 100%; background: #101512 !important; }
+      body { color: rgb(var(--ios-white)) !important; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif !important; overflow-x: hidden; }
+      body::before, body::after { display: none !important; }
+      .app-shell { display: block !important; min-height: 100dvh; padding: 0 !important; }
+      .sidebar { position: fixed !important; z-index: 30; inset: 0 0 auto; width: auto !important; height: 88px !important; display: grid !important; grid-template-columns: minmax(150px,auto) 1fr auto; align-items: center; gap: 20px; padding: 15px clamp(18px, 4.5vw, 72px) !important; background: linear-gradient(180deg, rgb(8 11 10 / .68), rgb(8 11 10 / .08)) !important; border: 0 !important; border-bottom: 1px solid rgb(var(--ios-white) / .11) !important; border-radius: 0 !important; box-shadow: none !important; backdrop-filter: blur(18px) !important; -webkit-backdrop-filter: blur(18px) !important; }
+      .sidebar .brand-lockup { justify-self: start; }
+      .sidebar .side-nav { display: inline-flex; justify-self: center; align-items: center; gap: 5px; min-width: clamp(300px, 40vw, 520px); padding: 5px; margin: 0; border: 1px solid rgb(var(--ios-white) / .13); border-radius: 999px; background: rgb(0 0 0 / .17); }
+      .sidebar .nav-item { flex: 1 1 0; min-height: 36px; justify-content: center; padding: 0 14px; color: rgb(var(--ios-mist) / .74) !important; border: 1px solid transparent !important; border-radius: 999px !important; background: transparent !important; font-size: 12px; font-weight: 700; }
+      .sidebar .nav-item:hover, .sidebar .nav-item.is-active { color: rgb(var(--ios-white)) !important; border-color: rgb(var(--ios-white) / .28) !important; background: rgb(var(--ios-white) / .14) !important; }
+      .sidebar .nav-item.is-active svg { color: rgb(var(--ios-accent)) !important; }
+      .sidebar .side-footnote { display: none; }
+      .brand-lockup { color: rgb(var(--ios-white)) !important; font-family: Inter, ui-sans-serif, sans-serif !important; font-size: 16px !important; letter-spacing: 0 !important; }
+      .brand-mark { width: 44px !important; height: 44px !important; border-radius: 16px !important; color: rgb(var(--ios-white)) !important; background: linear-gradient(145deg, rgb(var(--ios-accent) / .28), rgb(var(--ios-white) / .08)) !important; border: 1px solid rgb(var(--ios-white) / .28) !important; box-shadow: inset 0 1px 0 rgb(var(--ios-white) / .2), 0 14px 32px rgb(0 0 0 / .18) !important; }
+      .brand-mark svg { display: block !important; width: 25px !important; height: 25px !important; color: rgb(var(--ios-accent)); }
+      .brand-mark::after { display: none !important; }
+      .brand-name { display: grid; gap: 2px; }
+      .brand-name strong { font-size: 16px; }
+      .brand-name small { color: rgb(var(--ios-mist) / .62); font: 8px/1 monospace; letter-spacing: .12em; }
+      .app-main { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
+      .app-main > .topbar { position: fixed; z-index: 31; top: 16px; right: clamp(18px, 4.5vw, 72px); left: auto; min-height: 50px; margin: 0; padding: 0; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+      .app-main > .topbar .mobile-brand, .app-main > .topbar .page-heading { display: none; }
+      .app-main > .topbar .top-actions { display: inline-flex; }
+      .top-actions { gap: 8px; }
+      .streak-counter, .theme-toggle, .icon-button { color: rgb(var(--ios-white)) !important; background: rgb(0 0 0 / .18) !important; border: 1px solid rgb(var(--ios-white) / .2) !important; border-radius: 999px !important; box-shadow: inset 0 1px 0 rgb(var(--ios-white) / .12) !important; }
+      .streak-counter { min-height: 38px; }
+      .streak-counter svg { color: rgb(var(--ios-warm)); }
+      .icon-button, .theme-toggle { width: 38px; height: 38px; }
+      .icon-button:hover, .theme-toggle:hover { color: rgb(var(--ios-white)) !important; background: rgb(var(--ios-white) / .16) !important; border-color: rgb(var(--ios-white) / .34) !important; }
+      .view { min-height: 100dvh; }
+      .view:not([data-view="home"]) { padding: 118px clamp(18px, 4.5vw, 72px) 40px; }
+      .view:not([data-view="home"]) .learn-grid { grid-template-columns: minmax(0,1fr) 300px; gap: 18px; }
+      .view:not([data-view="home"]) .tool-surface, .view:not([data-view="home"]) .study-card, .view:not([data-view="home"]) .study-hero, .view:not([data-view="home"]) .settings-surface { background: linear-gradient(145deg, rgb(var(--ios-white) / .16), rgb(var(--ios-white) / .06)), rgb(9 13 12 / .22) !important; border: 1px solid var(--ios-line) !important; border-radius: 22px !important; box-shadow: var(--ios-shadow), inset 0 1px 0 rgb(var(--ios-white) / .16) !important; backdrop-filter: blur(26px) saturate(1.05) !important; -webkit-backdrop-filter: blur(26px) saturate(1.05) !important; }
+      .view:not([data-view="home"]) .study-hero { background: linear-gradient(145deg, rgb(var(--ios-accent) / .2), rgb(var(--ios-white) / .06)), rgb(8 14 12 / .36) !important; }
+      .view:not([data-view="home"]) .surface-heading h2, .view:not([data-view="home"]) .view-intro h2, .view:not([data-view="home"]) .article-heading h2, .view:not([data-view="home"]) .study-toolbar h3 { color: rgb(var(--ios-white)) !important; font-family: Inter, ui-sans-serif, sans-serif !important; font-weight: 700; }
+      .view:not([data-view="home"]) .section-kicker, .view:not([data-view="home"]) .eyebrow, .view:not([data-view="home"]) .study-toolbar p, .view:not([data-view="home"]) .privacy-line, .view:not([data-view="home"]) .history-empty { color: rgb(var(--ios-mist) / .7) !important; }
+      .view:not([data-view="home"]) textarea, .view:not([data-view="home"]) input, .view:not([data-view="home"]) select { color: rgb(var(--ios-white)) !important; background: rgb(0 0 0 / .18) !important; border: 1px solid var(--ios-line-soft) !important; border-radius: 13px !important; }
+      .view:not([data-view="home"]) .primary-button, .view:not([data-view="home"]) .secondary-button { min-height: 42px; border-radius: 999px !important; }
+      .view:not([data-view="home"]) .primary-button { color: rgb(var(--ios-ink)) !important; background: rgb(var(--ios-accent)) !important; border-color: rgb(var(--ios-white) / .3) !important; }
+      .view:not([data-view="home"]) .secondary-button { color: rgb(var(--ios-white)) !important; background: rgb(var(--ios-white) / .08) !important; border-color: var(--ios-line-soft) !important; }
+      .view:not([data-view="home"]) .prompt-panel { background: linear-gradient(145deg, rgb(var(--ios-accent) / .18), rgb(var(--ios-white) / .06)), rgb(8 14 12 / .18) !important; border: 1px solid rgb(var(--ios-white) / .2) !important; border-radius: 18px !important; }
+      .view:not([data-view="home"]) .mode-switch { border-radius: 999px !important; background: rgb(0 0 0 / .18) !important; }
+      .view:not([data-view="home"]) .mode-switch button { border-radius: 999px !important; }
+      .view:not([data-view="home"]) .mode-switch button.is-active { color: rgb(var(--ios-ink)) !important; background: rgb(var(--ios-accent)) !important; }
+      .view:not([data-view="home"]) .calendar-day, .view:not([data-view="home"]) .week-dot { border-radius: 13px !important; }
+      .view:not([data-view="home"]) .calendar-day.has-session, .view:not([data-view="home"]) .week-day.is-complete .week-dot { color: rgb(var(--ios-ink)) !important; background: rgb(var(--ios-accent)) !important; border-color: rgb(var(--ios-accent)) !important; }
+      .view[data-view="home"] { display: block; padding: 0; }
+      .haven-home { min-height: 100dvh; margin: 0 !important; padding: 118px clamp(18px, 6vw, 96px) 56px !important; background: transparent !important; }
+      .haven-scene { position: fixed; z-index: -1; inset: 0; background: radial-gradient(circle at 74% 20%, rgb(240 211 159 / .36), transparent 15%), linear-gradient(135deg, #172622 0%, #28463d 44%, #0b1212 100%) !important; }
+      .haven-scene::before { background: linear-gradient(90deg, rgb(0 0 0 / .58), rgb(0 0 0 / .06) 48%, rgb(0 0 0 / .42)), linear-gradient(180deg, rgb(0 0 0 / .2), rgb(0 0 0 / .08) 48%, rgb(0 0 0 / .7)) !important; }
+      .haven-home-content { max-width: 670px; min-height: calc(100dvh - 175px); justify-content: center; }
+      .haven-home h2 { font-size: clamp(45px, 6vw, 82px) !important; font-weight: 650 !important; font-family: Inter, ui-sans-serif, sans-serif !important; letter-spacing: -.055em !important; }
+      .haven-home h2 span { color: rgb(var(--ios-mist)) !important; }
+      .haven-lede { color: rgb(var(--ios-mist) / .82) !important; }
+      .haven-eyebrow { color: rgb(var(--ios-mist) / .78) !important; }
+      .pomodoro-panel { width: min(440px,100%); padding: 22px 24px 24px; background: linear-gradient(145deg, rgb(var(--ios-white) / .17), rgb(var(--ios-white) / .06)), rgb(8 13 12 / .24) !important; border: 1px solid var(--ios-line) !important; border-radius: 24px !important; box-shadow: var(--ios-shadow), inset 0 1px 0 rgb(var(--ios-white) / .16) !important; backdrop-filter: blur(26px) saturate(1.08) !important; -webkit-backdrop-filter: blur(26px) saturate(1.08) !important; }
+      .pomodoro-main { border-radius: 999px !important; }
+      .pomodoro-icon { border-radius: 50% !important; }
+      .scene-window { opacity: .72; }
+      .mobile-nav { display: none !important; }
+      [data-theme="light"] body, [data-theme="light"] html { background: #c9ddd4 !important; }
+      [data-theme="light"] .sidebar { background: linear-gradient(180deg, rgb(232 244 238 / .78), rgb(232 244 238 / .18)) !important; border-bottom-color: rgb(18 48 38 / .13) !important; }
+      [data-theme="light"] .sidebar .side-nav { background: rgb(27 73 57 / .1); border-color: rgb(21 61 47 / .15); }
+      [data-theme="light"] .sidebar .nav-item { color: rgb(18 51 39 / .68) !important; }
+      [data-theme="light"] .sidebar .nav-item:hover, [data-theme="light"] .sidebar .nav-item.is-active { color: #13372b !important; background: rgb(255 255 255 / .55) !important; border-color: rgb(255 255 255 / .75) !important; }
+      [data-theme="light"] .brand-lockup, [data-theme="light"] .brand-name strong { color: #17372d !important; }
+      [data-theme="light"] .brand-name small { color: rgb(23 55 45 / .58); }
+      [data-theme="light"] .brand-mark { color: #17372d !important; background: rgb(255 255 255 / .56) !important; border-color: rgb(255 255 255 / .7) !important; }
+      [data-theme="light"] .streak-counter, [data-theme="light"] .theme-toggle, [data-theme="light"] .icon-button { color: #17372d !important; background: rgb(255 255 255 / .45) !important; border-color: rgb(23 55 45 / .17) !important; }
+      [data-theme="light"] .haven-scene { background: radial-gradient(circle at 74% 20%, rgb(255 239 189 / .72), transparent 15%), linear-gradient(135deg,#a7cbc0 0%,#d8e8de 45%,#8caea2 100%) !important; }
+      [data-theme="light"] .haven-scene::before { background: linear-gradient(90deg, rgb(255 255 255 / .1), rgb(255 255 255 / .02) 48%, rgb(29 74 59 / .16)), linear-gradient(180deg, rgb(255 255 255 / .1), transparent 48%, rgb(30 68 53 / .24)) !important; }
+      [data-theme="light"] .haven-home h2 { color: #17372d !important; }
+      [data-theme="light"] .haven-home h2 span, [data-theme="light"] .haven-lede, [data-theme="light"] .haven-eyebrow { color: #345f50 !important; }
+      [data-theme="light"] .pomodoro-panel { background: linear-gradient(145deg, rgb(255 255 255 / .5), rgb(255 255 255 / .18)), rgb(255 255 255 / .18) !important; border-color: rgb(255 255 255 / .6) !important; box-shadow: 0 28px 90px rgb(55 94 80 / .18), inset 0 1px 0 rgb(255 255 255 / .85) !important; }
+      [data-theme="light"] .pomodoro-time { color: #17372d; }
+      [data-theme="light"] .pomodoro-topline, [data-theme="light"] .pomodoro-icon { color: #345f50; }
+      [data-theme="light"] .pomodoro-icon { background: rgb(255 255 255 / .35); border-color: rgb(23 55 45 / .17); }
+      @media (max-width: 760px) { .sidebar { grid-template-columns: minmax(0,1fr) auto; height: 74px !important; padding: 10px 16px !important; } .sidebar .side-nav { position: fixed; top: 82px; right: 16px; left: 16px; min-width: 0; } .app-main > .topbar { top: 16px; right: 16px; } .app-main > .topbar .top-actions { transform: translateY(64px); } .haven-home { padding-top: 145px !important; } .haven-home-content { min-height: calc(100dvh - 190px); } }
     </style>
   </head>
 <body>
@@ -833,19 +1022,20 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
         </header>
 
         <section class="view is-active" data-view="home" aria-labelledby="home-heading">
-          <div class="home-view showcase-page">
-            <canvas class="showcase-dots" id="showcase-dots" aria-hidden="true"></canvas>
-            <div class="showcase-copy">
-              <p class="home-kicker">DRAGON / MEMORY STUDIO</p>
-              <h2 id="home-heading"><span class="split-word">让记忆</span><br /><span class="split-word accent-word">变得有形。</span></h2>
-              <p class="home-lede">一个为注意力而设计的英语学习空间。写下来，想起来，再把它带进真实的语境。</p>
-              <div class="showcase-rule"><span></span><small>ACTIVE RECALL · 2026</small></div>
+          <div class="haven-home">
+            <div class="haven-scene" aria-hidden="true"><div class="scene-moon"></div><div class="scene-window"></div><div class="scene-desk"></div><div class="scene-lamp"></div></div>
+            <div class="haven-home-content">
+              <p class="haven-eyebrow">龙 · FOCUS ROOM</p>
+              <h2 id="home-heading">给自己一段<br /><span>不会被打断的时间。</span></h2>
+              <p class="haven-lede">用番茄钟把注意力收回来。完成一轮，再开始今天的第一组单词。</p>
+              <div class="pomodoro-panel" aria-label="番茄钟">
+                <div class="pomodoro-topline"><span id="pomodoro-state">准备开始</span><span id="pomodoro-round">ROUND 01</span></div>
+                <div class="pomodoro-time" id="pomodoro-time">25:00</div>
+                <div class="pomodoro-progress"><span id="pomodoro-progress"></span></div>
+                <div class="pomodoro-controls"><button class="pomodoro-main" type="button" id="pomodoro-toggle"><i data-lucide="play"></i><span>开始专注</span></button><button class="pomodoro-icon" type="button" id="pomodoro-reset" title="重置计时" aria-label="重置计时"><i data-lucide="rotate-ccw"></i></button><button class="pomodoro-icon" type="button" id="pomodoro-mode" title="切换休息" aria-label="切换休息"><i data-lucide="coffee"></i></button></div>
+              </div>
+              <div class="haven-note"><span>01</span><p>一轮专注只做一件事。<br />今天可以从 5 个词开始。</p></div>
             </div>
-            <div class="showcase-window" aria-label="产品静态展示">
-              <div class="window-bar"><span></span><span></span><span></span><small>dragon / session-001</small></div>
-              <div class="window-body"><div class="window-side"><small>今日回忆</small><strong>01</strong><em>写下<br />你想到的词</em></div><div class="window-main"><p class="window-label">RECALL PROMPT</p><h3>有韧性的；<br />能恢复的</h3><div class="window-line"></div><p class="window-ghost">你会想到哪个英文单词？</p><div class="window-footer"><span>手写 / 键盘</span><span>↓</span></div></div></div>
-            </div>
-            <div class="showcase-caption"><span>01</span><p>从记忆里取出答案，<br />而不是从选项里猜答案。</p></div>
           </div>
         </section>
 
@@ -1730,6 +1920,11 @@ let studyMode = localStorage.getItem("lexora.study.mode") || "handwriting";
 let studyAnswerVisible = false;
 let drawing = false;
 let lastPoint = null;
+let pomodoroSeconds = Number(localStorage.getItem("dragon.pomodoro.seconds") || 25 * 60);
+let pomodoroTotal = pomodoroSeconds;
+let pomodoroRunning = false;
+let pomodoroBreak = false;
+let pomodoroTimer = null;
 const WORD_EXTRACTION_PROMPT = [
   "请从我接下来发送的单词本图片或文字中提取英文单词。",
   "只输出可直接粘贴到 Lexora 的纯单词清单：每行一个英文单词，全部小写并去重。",
@@ -1941,6 +2136,54 @@ function rateStudy(rating) {
   renderStudy();
 }
 
+function renderPomodoro() {
+  const minutes = Math.floor(pomodoroSeconds / 60).toString().padStart(2, "0");
+  const seconds = (pomodoroSeconds % 60).toString().padStart(2, "0");
+  const time = document.querySelector("#pomodoro-time");
+  const state = document.querySelector("#pomodoro-state");
+  const progress = document.querySelector("#pomodoro-progress");
+  const toggle = document.querySelector("#pomodoro-toggle");
+  if (!time || !state || !progress || !toggle) return;
+  time.textContent = `${minutes}:${seconds}`;
+  state.textContent = pomodoroRunning ? (pomodoroBreak ? "休息中" : "专注中") : (pomodoroBreak ? "准备休息" : "准备开始");
+  progress.style.width = `${Math.max(0, Math.min(100, (1 - pomodoroSeconds / pomodoroTotal) * 100))}%`;
+  toggle.innerHTML = pomodoroRunning ? '<i data-lucide="pause"></i><span>暂停</span>' : '<i data-lucide="play"></i><span>开始专注</span>';
+  refreshIcons();
+}
+
+function resetPomodoro() {
+  window.clearInterval(pomodoroTimer);
+  pomodoroRunning = false;
+  pomodoroBreak = false;
+  pomodoroSeconds = 25 * 60;
+  pomodoroTotal = pomodoroSeconds;
+  localStorage.setItem("dragon.pomodoro.seconds", String(pomodoroSeconds));
+  renderPomodoro();
+}
+
+function togglePomodoro() {
+  pomodoroRunning = !pomodoroRunning;
+  window.clearInterval(pomodoroTimer);
+  if (pomodoroRunning) {
+    pomodoroTimer = window.setInterval(() => {
+      pomodoroSeconds = Math.max(0, pomodoroSeconds - 1);
+      localStorage.setItem("dragon.pomodoro.seconds", String(pomodoroSeconds));
+      renderPomodoro();
+      if (pomodoroSeconds === 0) { window.clearInterval(pomodoroTimer); pomodoroRunning = false; showToast(pomodoroBreak ? "休息结束，可以开始学习。" : "这一轮专注完成了。休息一下吧。"); }
+    }, 1000);
+  }
+  renderPomodoro();
+}
+
+function togglePomodoroMode() {
+  window.clearInterval(pomodoroTimer);
+  pomodoroRunning = false;
+  pomodoroBreak = !pomodoroBreak;
+  pomodoroSeconds = pomodoroBreak ? 5 * 60 : 25 * 60;
+  pomodoroTotal = pomodoroSeconds;
+  renderPomodoro();
+}
+
 async function generate() {
   activeWords = parseWords(elements.wordInput.value);
   if (!activeWords.length) {
@@ -2058,6 +2301,9 @@ function bindEvents() {
     document.querySelector("#theme-toggle").innerHTML = nextTheme === "light" ? '<i data-lucide="moon"></i>' : '<i data-lucide="sun"></i>';
     refreshIcons();
   });
+  document.querySelector("#pomodoro-toggle")?.addEventListener("click", togglePomodoro);
+  document.querySelector("#pomodoro-reset")?.addEventListener("click", resetPomodoro);
+  document.querySelector("#pomodoro-mode")?.addEventListener("click", togglePomodoroMode);
   document.querySelector("#close-sheet").addEventListener("click", closeWordSheet);
   elements.sheetBackdrop.addEventListener("click", closeWordSheet);
   document.querySelector("#open-manual").addEventListener("click", openManual);
@@ -2142,6 +2388,7 @@ function init() {
   renderAll();
   bindEvents();
   refreshIcons();
+  renderPomodoro();
   document.querySelector("#reading-generate-button")?.addEventListener("click", () => {
     const words = parseWords(document.querySelector("#reading-word-input").value);
     document.querySelector("#reading-word-count").textContent = `${words.length} 个`;
