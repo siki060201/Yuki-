@@ -939,7 +939,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .view:not([data-view="home"]) .calendar-day.has-session, .view:not([data-view="home"]) .week-day.is-complete .week-dot { color: rgb(var(--ios-ink)) !important; background: rgb(var(--ios-accent)) !important; border-color: rgb(var(--ios-accent)) !important; }
       .view[data-view="home"] { display: block; padding: 0; }
       .haven-home { min-height: 100dvh; margin: 0 !important; padding: 118px clamp(18px, 6vw, 96px) 56px !important; background: transparent !important; }
-      .haven-scene { position: fixed; z-index: -1; inset: 0; background: radial-gradient(circle at 74% 20%, rgb(240 211 159 / .36), transparent 15%), linear-gradient(135deg, #172622 0%, #28463d 44%, #0b1212 100%) !important; }
+      .haven-scene { position: fixed; z-index: -1; inset: 0; background-image: linear-gradient(90deg, rgb(0 0 0 / .34), rgb(0 0 0 / .05) 55%, rgb(0 0 0 / .2)), url("./assets/generated/image-1-3f450400.png") !important; background-position: center; background-size: cover; background-repeat: no-repeat; }
       .haven-scene::before { background: linear-gradient(90deg, rgb(0 0 0 / .58), rgb(0 0 0 / .06) 48%, rgb(0 0 0 / .42)), linear-gradient(180deg, rgb(0 0 0 / .2), rgb(0 0 0 / .08) 48%, rgb(0 0 0 / .7)) !important; }
       .haven-home-content { max-width: 670px; min-height: calc(100dvh - 175px); justify-content: center; }
       .haven-home h2 { font-size: clamp(45px, 6vw, 82px) !important; font-weight: 650 !important; font-family: Inter, ui-sans-serif, sans-serif !important; letter-spacing: -.055em !important; }
@@ -947,6 +947,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .haven-lede { color: rgb(var(--ios-mist) / .82) !important; }
       .haven-eyebrow { color: rgb(var(--ios-mist) / .78) !important; }
       .pomodoro-panel { width: min(440px,100%); padding: 22px 24px 24px; background: linear-gradient(145deg, rgb(var(--ios-white) / .17), rgb(var(--ios-white) / .06)), rgb(8 13 12 / .24) !important; border: 1px solid var(--ios-line) !important; border-radius: 24px !important; box-shadow: var(--ios-shadow), inset 0 1px 0 rgb(var(--ios-white) / .16) !important; backdrop-filter: blur(26px) saturate(1.08) !important; -webkit-backdrop-filter: blur(26px) saturate(1.08) !important; }
+      .pomodoro-panel { background: rgb(8 13 12 / .28) !important; border-color: rgb(255 255 255 / .18) !important; }
       .pomodoro-main { border-radius: 999px !important; }
       .pomodoro-icon { border-radius: 50% !important; }
       .scene-window { opacity: .72; }
@@ -960,7 +961,7 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       [data-theme="light"] .brand-name small { color: rgb(23 55 45 / .58); }
       [data-theme="light"] .brand-mark { color: #17372d !important; background: rgb(255 255 255 / .56) !important; border-color: rgb(255 255 255 / .7) !important; }
       [data-theme="light"] .streak-counter, [data-theme="light"] .theme-toggle, [data-theme="light"] .icon-button { color: #17372d !important; background: rgb(255 255 255 / .45) !important; border-color: rgb(23 55 45 / .17) !important; }
-      [data-theme="light"] .haven-scene { background: radial-gradient(circle at 74% 20%, rgb(255 239 189 / .72), transparent 15%), linear-gradient(135deg,#a7cbc0 0%,#d8e8de 45%,#8caea2 100%) !important; }
+      [data-theme="light"] .haven-scene { background-image: linear-gradient(90deg, rgb(255 255 255 / .12), rgb(255 255 255 / .02) 55%, rgb(29 74 59 / .16)), url("./assets/generated/image-1-3f450400.png") !important; filter: brightness(1.12) saturate(.86); }
       [data-theme="light"] .haven-scene::before { background: linear-gradient(90deg, rgb(255 255 255 / .1), rgb(255 255 255 / .02) 48%, rgb(29 74 59 / .16)), linear-gradient(180deg, rgb(255 255 255 / .1), transparent 48%, rgb(30 68 53 / .24)) !important; }
       [data-theme="light"] .haven-home h2 { color: #17372d !important; }
       [data-theme="light"] .haven-home h2 span, [data-theme="light"] .haven-lede, [data-theme="light"] .haven-eyebrow { color: #345f50 !important; }
