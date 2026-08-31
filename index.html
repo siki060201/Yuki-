@@ -972,6 +972,15 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       [data-theme="light"] .pomodoro-settings input { color: #17372d; background: rgb(255 255 255 / .42); border-color: rgba(23,55,45,.2); }
       [data-theme="light"] .pomodoro-settings button { color: #2f5c50; background: rgb(255 255 255 / .34); border-color: rgba(23,55,45,.2); }
       @media (max-width: 760px) { .sidebar { grid-template-columns: minmax(0,1fr) auto; height: 74px !important; padding: 10px 16px !important; } .sidebar .side-nav { position: fixed; top: 82px; right: 16px; left: 16px; min-width: 0; } .app-main > .topbar { top: 16px; right: 16px; } .app-main > .topbar .top-actions { transform: translateY(64px); } .haven-home { padding-top: 145px !important; } .haven-home-content { min-height: calc(100dvh - 190px); } }
+
+      /* Navigation fix: an explicit, always-clickable top navigation bar. */
+      .sidebar { z-index: 100 !important; pointer-events: auto !important; }
+      .sidebar .side-nav { position: relative !important; z-index: 101 !important; pointer-events: auto !important; }
+      .sidebar .nav-item { position: relative; z-index: 102; pointer-events: auto !important; }
+      .app-main > .topbar { z-index: 90 !important; pointer-events: none; }
+      .app-main > .topbar .top-actions { pointer-events: auto; }
+      .view:not([data-view="home"]) { scroll-margin-top: 110px; }
+      @media (max-width: 760px) { .sidebar .side-nav { z-index: 101 !important; } .app-main > .topbar { z-index: 90 !important; } }
     </style>
   </head>
 <body>
