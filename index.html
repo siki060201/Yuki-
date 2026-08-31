@@ -980,6 +980,8 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       .sidebar .nav-item { position: relative; z-index: 102; pointer-events: auto !important; }
       .app-main > .topbar { z-index: 90 !important; pointer-events: none; }
       .app-main > .topbar .top-actions { pointer-events: auto; }
+      .view[data-view="home"] { display: none !important; }
+      .view[data-view="home"].is-active { display: block !important; }
       .view:not([data-view="home"]) { scroll-margin-top: 110px; }
       @media (max-width: 760px) { .sidebar .side-nav { z-index: 101 !important; } .app-main > .topbar { z-index: 90 !important; } }
     </style>
