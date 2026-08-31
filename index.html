@@ -419,6 +419,10 @@ body::before, body::after { display: none; }
 .pomodoro-progress { height: 4px; margin-top: 22px; overflow: hidden; background: rgba(255,255,255,.13); border-radius: 99px; }
 .pomodoro-progress span { display: block; width: 0%; height: 100%; background: #cde9d1; border-radius: inherit; transition: width .2s linear; }
 .pomodoro-controls { display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.pomodoro-settings { display: flex; align-items: center; gap: 8px; margin-top: 16px; color: rgba(229,239,230,.66); font-size: 11px; }
+.pomodoro-settings input { width: 70px; height: 32px; padding: 0 9px; color: #fffdf5; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 9px; text-align: center; font-variant-numeric: tabular-nums; }
+.pomodoro-settings button { min-height: 32px; padding: 0 10px; color: #e7f2df; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 9px; font-size: 11px; }
+.pomodoro-settings button:hover { background: rgba(255,255,255,.16); }
 .pomodoro-main { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 17px; color: #13201a; background: #e7f2df; border: 1px solid rgba(255,255,255,.48); border-radius: 9px; font-size: 13px; font-weight: 800; box-shadow: 0 8px 24px rgba(213,240,215,.15); }
 .pomodoro-main:hover { background: #fffef3; }
 .pomodoro-main svg, .pomodoro-icon svg { width: 16px; }
@@ -964,6 +968,9 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
       [data-theme="light"] .pomodoro-time { color: #17372d; }
       [data-theme="light"] .pomodoro-topline, [data-theme="light"] .pomodoro-icon { color: #345f50; }
       [data-theme="light"] .pomodoro-icon { background: rgb(255 255 255 / .35); border-color: rgb(23 55 45 / .17); }
+      [data-theme="light"] .pomodoro-settings { color: #527267; }
+      [data-theme="light"] .pomodoro-settings input { color: #17372d; background: rgb(255 255 255 / .42); border-color: rgba(23,55,45,.2); }
+      [data-theme="light"] .pomodoro-settings button { color: #2f5c50; background: rgb(255 255 255 / .34); border-color: rgba(23,55,45,.2); }
       @media (max-width: 760px) { .sidebar { grid-template-columns: minmax(0,1fr) auto; height: 74px !important; padding: 10px 16px !important; } .sidebar .side-nav { position: fixed; top: 82px; right: 16px; left: 16px; min-width: 0; } .app-main > .topbar { top: 16px; right: 16px; } .app-main > .topbar .top-actions { transform: translateY(64px); } .haven-home { padding-top: 145px !important; } .haven-home-content { min-height: calc(100dvh - 190px); } }
     </style>
   </head>
@@ -1027,11 +1034,12 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
             <div class="haven-home-content">
               <p class="haven-eyebrow">龙 · FOCUS ROOM</p>
               <h2 id="home-heading">给自己一段<br /><span>不会被打断的时间。</span></h2>
-              <p class="haven-lede">用番茄钟把注意力收回来。完成一轮，再开始今天的第一组单词。</p>
+              <p class="haven-lede">一轮只做一件事。</p>
               <div class="pomodoro-panel" aria-label="番茄钟">
                 <div class="pomodoro-topline"><span id="pomodoro-state">准备开始</span><span id="pomodoro-round">ROUND 01</span></div>
                 <div class="pomodoro-time" id="pomodoro-time">25:00</div>
                 <div class="pomodoro-progress"><span id="pomodoro-progress"></span></div>
+                <div class="pomodoro-settings"><label for="pomodoro-minutes">分钟</label><input id="pomodoro-minutes" type="number" min="1" max="180" value="25" inputmode="numeric" /><button type="button" id="pomodoro-apply">应用</button></div>
                 <div class="pomodoro-controls"><button class="pomodoro-main" type="button" id="pomodoro-toggle"><i data-lucide="play"></i><span>开始专注</span></button><button class="pomodoro-icon" type="button" id="pomodoro-reset" title="重置计时" aria-label="重置计时"><i data-lucide="rotate-ccw"></i></button><button class="pomodoro-icon" type="button" id="pomodoro-mode" title="切换休息" aria-label="切换休息"><i data-lucide="coffee"></i></button></div>
               </div>
               <div class="haven-note"><span>01</span><p>一轮专注只做一件事。<br />今天可以从 5 个词开始。</p></div>
@@ -1736,6 +1744,7 @@ function renderWordInput(words) {
 }
 
 function renderReading(session) {
+  if (!session || !elements.articleSource || !elements.articleDate || !elements.articleTitle || !elements.articleMeta || !elements.articleBody) return;
   elements.articleSource.textContent = session.source;
   elements.articleDate.textContent = session.date === new Date().toISOString().slice(0, 10) ? "今日短文" : `历史记录 · ${session.date}`;
   elements.articleTitle.textContent = session.title;
@@ -1744,6 +1753,7 @@ function renderReading(session) {
 }
 
 function renderReadingDirectory(sessions, date, activeSessionId) {
+  if (!elements.readingDirectoryDate || !elements.readingDirectoryCount || !elements.readingDirectory) return;
   const isToday = date === formatKey(new Date());
   elements.readingDirectoryDate.textContent = isToday ? "今日目录" : `${formatDate(date, { year: "numeric", month: "long", day: "numeric" })}目录`;
   elements.readingDirectoryCount.textContent = `${sessions.length} 篇`;
@@ -1779,6 +1789,7 @@ function calculateStreak(sessions) {
 }
 
 function renderRhythm(sessions) {
+  if (!elements.weekStrip || !elements.weekCompleted || !elements.streakCount) return;
   const sessionDates = new Set(sessions.map((session) => session.date));
   const today = new Date();
   today.setHours(12, 0, 0, 0);
@@ -1800,6 +1811,7 @@ function renderRhythm(sessions) {
 }
 
 function renderHistory(sessions) {
+  if (!elements.historyList) return;
   const recent = sessions.slice(0, 4);
   elements.historyList.innerHTML = recent.length
     ? recent.map((session) => `<button type="button" class="history-item" data-load-session="${escapeHtml(session.id)}"><strong>${escapeHtml(session.title)}</strong><span>${formatDate(session.date)} · ${session.words.length} 个词</span></button>`).join("")
@@ -1807,6 +1819,7 @@ function renderHistory(sessions) {
 }
 
 function renderCalendar(sessions, monthDate) {
+  if (!elements.calendarLabel || !elements.calendarGrid || !elements.archiveSummary || !elements.archiveList) return;
   const year = monthDate.getFullYear();
   const month = monthDate.getMonth();
   const sessionsByDate = new Map();
@@ -1925,6 +1938,7 @@ let pomodoroTotal = pomodoroSeconds;
 let pomodoroRunning = false;
 let pomodoroBreak = false;
 let pomodoroTimer = null;
+let pomodoroMinutes = Number(localStorage.getItem("dragon.pomodoro.minutes") || 25);
 const WORD_EXTRACTION_PROMPT = [
   "请从我接下来发送的单词本图片或文字中提取英文单词。",
   "只输出可直接粘贴到 Lexora 的纯单词清单：每行一个英文单词，全部小写并去重。",
@@ -2155,7 +2169,7 @@ function resetPomodoro() {
   window.clearInterval(pomodoroTimer);
   pomodoroRunning = false;
   pomodoroBreak = false;
-  pomodoroSeconds = 25 * 60;
+  pomodoroSeconds = pomodoroMinutes * 60;
   pomodoroTotal = pomodoroSeconds;
   localStorage.setItem("dragon.pomodoro.seconds", String(pomodoroSeconds));
   renderPomodoro();
@@ -2179,7 +2193,7 @@ function togglePomodoroMode() {
   window.clearInterval(pomodoroTimer);
   pomodoroRunning = false;
   pomodoroBreak = !pomodoroBreak;
-  pomodoroSeconds = pomodoroBreak ? 5 * 60 : 25 * 60;
+  pomodoroSeconds = pomodoroBreak ? 5 * 60 : pomodoroMinutes * 60;
   pomodoroTotal = pomodoroSeconds;
   renderPomodoro();
 }
@@ -2199,6 +2213,10 @@ async function generate() {
     activeSession = storage.saveSession(session);
     activeDate = activeSession.date;
     renderAll();
+    const readingTitle = document.querySelector("#reading-article-title");
+    const readingBody = document.querySelector("#reading-article-body");
+    if (readingTitle) readingTitle.textContent = session.title;
+    if (readingBody) readingBody.innerHTML = session.body.split(/\n{2,}/).map((paragraph) => `<p>${paragraph.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character])}</p>`).join("");
     showToast(session.source === "本地演示" ? "已生成本地演示短文。连接模型后可生成真实 AI 内容。" : "AI 短文已生成并归档。");
   } catch (error) {
     showToast(error.message || "生成失败，请稍后再试。");
@@ -2307,6 +2325,20 @@ function bindEvents() {
   document.querySelector("#pomodoro-toggle")?.addEventListener("click", togglePomodoro);
   document.querySelector("#pomodoro-reset")?.addEventListener("click", resetPomodoro);
   document.querySelector("#pomodoro-mode")?.addEventListener("click", togglePomodoroMode);
+  document.querySelector("#pomodoro-apply")?.addEventListener("click", () => {
+    const input = document.querySelector("#pomodoro-minutes");
+    const minutes = Math.max(1, Math.min(180, Number(input?.value || 25)));
+    pomodoroMinutes = minutes;
+    pomodoroBreak = false;
+    pomodoroRunning = false;
+    window.clearInterval(pomodoroTimer);
+    pomodoroSeconds = minutes * 60;
+    pomodoroTotal = pomodoroSeconds;
+    localStorage.setItem("dragon.pomodoro.minutes", String(minutes));
+    localStorage.setItem("dragon.pomodoro.seconds", String(pomodoroSeconds));
+    renderPomodoro();
+    showToast(`番茄钟已设为 ${minutes} 分钟。`);
+  });
   document.querySelector("#close-sheet")?.addEventListener("click", closeWordSheet);
   elements.sheetBackdrop?.addEventListener("click", closeWordSheet);
   document.querySelector("#open-manual")?.addEventListener("click", openManual);
@@ -2392,6 +2424,8 @@ function init() {
   bindEvents();
   refreshIcons();
   renderPomodoro();
+  const pomodoroInput = document.querySelector("#pomodoro-minutes");
+  if (pomodoroInput) pomodoroInput.value = String(pomodoroMinutes);
   document.addEventListener("pointermove", (event) => { document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`); document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`); }, { passive: true });
   startShowcaseDots();
 }
