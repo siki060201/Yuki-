@@ -435,8 +435,8 @@ body::after { content: ""; position: fixed; z-index: -1; left: var(--cursor-x, 5
             <span>LEXORA</span>
           </div>
           <div class="page-heading">
-            <p class="eyebrow" id="page-kicker">持续学习</p>
-            <h1 id="page-title">今日学习</h1>
+            <p class="eyebrow" id="page-kicker">龙</p>
+            <h1 id="page-title">欢迎回来</h1>
           </div>
           <div class="top-actions">
             <div class="streak-counter" title="连续学习天数">
@@ -1612,6 +1612,16 @@ function bindEvents() {
   document.querySelector("#clear-words").addEventListener("click", () => syncInput([]));
   document.querySelector("#new-reading-button").addEventListener("click", startNewReading);
   document.querySelector("#generate-button").addEventListener("click", generate);
+  document.querySelector("#reading-generate-button").addEventListener("click", () => {
+    const words = parseWords(document.querySelector("#reading-word-input").value);
+    if (!words.length) { showToast("先输入至少一个英文单词。"); return; }
+    document.querySelector("#word-input").value = words.join(", ");
+    activeWords = words;
+    document.querySelector("#genre-select").value = document.querySelector("#reading-genre-select").value;
+    document.querySelector("#difficulty-select").value = document.querySelector("#reading-difficulty-select").value;
+    document.querySelector("#article-length-select").value = document.querySelector("#reading-length-select").value;
+    generate();
+  });
   document.querySelector("#copy-extraction-prompt").addEventListener("click", copyExtractionPrompt);
   document.querySelector("#copy-button").addEventListener("click", copySession);
   document.querySelector("#export-button").addEventListener("click", exportSession);
