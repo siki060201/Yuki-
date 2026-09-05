@@ -1,6 +1,8 @@
-# Lexora · 极简主动回忆背词工作台 & 原生 AI 智能学习助手
+# ☕ Yuki自习室 (Yuki Study Room)
 
-> **Lexora** 是一款专为深度英语学习者打造的现代化、极简主义全功能单页面（SPA）学习工作台。结合主动回忆（Active Recall）、艾宾浩斯间隔重复算法、自然伴读书房音效与 **原生内嵌的 AI 助学对话引擎**。
+> **Yuki自习室** 是一款专为深度英语学习者打造的现代化、沉浸式全功能单页面（SPA）学习空间。融合主动回忆法（Active Recall）、艾宾浩斯间隔重复算法、静谧书房环境音与 **原生内嵌的 AI 伴学对话引擎**。
+>
+> 🌐 **官方线上自习室**：[https://suki0201.cc.cd/](https://suki0201.cc.cd/) | [备用边缘节点](https://lexora-ai-reader.siki060201.workers.dev)
 
 ---
 
