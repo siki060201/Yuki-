@@ -6,44 +6,47 @@ const FALLBACK_LEXICON = {
   emerge: { ipa: "/ɪˈmɜːdʒ/", partOfSpeech: "动词", definition: "出现；浮现；显露", explanation: "表示从不明显或被遮蔽的状态中逐渐显现。" },
 };
 
-const genreOpenings = {
-  "科技观察": "In a small research studio, a team watched a new pattern take shape across their data.",
-  "科幻小说": "At the edge of a quiet orbital city, the morning lights switched on one by one.",
-  "日常故事": "On a rainy morning, a student opened a notebook before the first train arrived.",
-  "新闻评论": "A recent local report showed how a single practical decision can influence an entire community.",
-};
-
-const DIFFICULTY_VOCABULARY_RULES = {
-  "四级": "the CET-4 core vocabulary range; prefer common, high-frequency English",
-  "六级": "the CET-6 core vocabulary range, including CET-4 vocabulary; avoid rarer academic test vocabulary",
-  "专升本": "the Chinese college-to-undergraduate examination core vocabulary range; use common general English and avoid CET-6 or postgraduate-level vocabulary",
-  "研究生考试": "the Chinese postgraduate entrance examination core vocabulary range; avoid specialist, GRE, TOEFL, and rare academic vocabulary outside that syllabus",
-};
-
 function titleCase(word) {
   return word ? word.charAt(0).toUpperCase() + word.slice(1) : "Word";
 }
 
-function fallbackDefinition(word) {
-  const known = FALLBACK_LEXICON[word.toLowerCase()];
-  if (known) return { word, ...known };
+// 本地核心词库查表，优先匹配项目自带的400个精选核心词
+function lookupLexicon(word) {
+  const w = String(word || "").trim().toLowerCase();
+  const rawList = Array.isArray(window.LEXORA_EMBEDDED_LEXICON) ? window.LEXORA_EMBEDDED_LEXICON : [];
+  const hit = rawList.find((item) => String(item.word || "").toLowerCase() === w);
+  if (hit) {
+    return {
+      word: hit.word,
+      ipa: hit.ipa || `/${hit.word}/`,
+      partOfSpeech: hit.pos || "重点词",
+      definition: hit.def || hit.definition || "核心释义",
+      explanation: hit.mne || (hit.sen ? `例: ${hit.sen}` : "高频核心词汇"),
+      sentence: hit.sen || "",
+    };
+  }
+
+  const fb = FALLBACK_LEXICON[w];
+  if (fb) return { word: w, ...fb };
+
   return {
-    word,
-    ipa: `/${word}/`,
-    partOfSpeech: "词性待定",
-    definition: "待 AI 补充释义",
-    explanation: "连接模型后，Lexora 会为这个单词生成音标、词性和语境解释。",
+    word: w,
+    ipa: `/${w}/`,
+    partOfSpeech: "重点词",
+    definition: "语境重点词汇",
+    explanation: "结合短文语境深入理解与记忆。",
   };
 }
 
+// 智能分词引擎：支持空格、逗号、分号、换行，并自动剔除混杂的中文注释与符号
 function parseWords(input) {
-  return [...new Set(
-    String(input || "")
-      .split(/[，,;；\n\t]+/)
-      .map((item) => item.trim().replace(/^[^A-Za-z'-]+|[^A-Za-z'-]+$/g, ""))
-      .filter(Boolean)
-      .map((item) => item.toLowerCase()),
-  )].slice(0, 24);
+  const raw = String(input || "");
+  // 正则提取所有合法的纯英文单词（支持连字符如 state-of-the-art）
+  const matches = raw.match(/[A-Za-z]+(?:[-'][A-Za-z]+)*/g) || [];
+  const clean = matches
+    .map((w) => w.trim().toLowerCase())
+    .filter((w) => w.length > 1 && !/^(the|and|or|in|on|at|to|a|an|of|for|is|it|by|as)$/i.test(w));
+  return [...new Set(clean)].slice(0, 24);
 }
 
 function getToday() {
@@ -52,36 +55,91 @@ function getToday() {
   return new Date(date.getTime() - offset * 60_000).toISOString().slice(0, 10);
 }
 
-function createDemoSession(words, genre = "科技观察", difficulty = "四级", targetWordCount = 120) {
+// 动态多题材短文生成引擎（离线/Fallback 模式，绝不死锁固定短文）
+function createDemoSession(words, genre = "日常故事", difficulty = "四级", targetWordCount = 120) {
   const safeWords = words.length ? words : ["resilient", "catalyst", "subtle", "emerge"];
-  const sentences = safeWords.map((word, index) => {
-    const label = titleCase(word);
-    const options = [
-      `${label} became the word the team used when the first result did not match their expectations.`,
-      `A small decision acted as a ${word}, giving the group a reason to test an unfamiliar idea.`,
-      `The change was ${word} at first, visible only in the way people began to ask better questions.`,
-      `Over time, a clearer direction started to ${word}, connecting individual observations into a useful story.`,
+  const definitions = safeWords.map(lookupLexicon);
+
+  const titles = {
+    "科技观察": [
+      `The Science of ${titleCase(safeWords[0])}`,
+      `Patterns in Modern Discovery`,
+      `The Logic of Innovation`,
+      `How Small Steps Bring Progress`
+    ],
+    "科幻小说": [
+      `Echoes in the Starlit City`,
+      `Beyond the Silent Orbit`,
+      `Chronicles of the New Dawn`,
+      `The Voyage to Horizons Unknown`
+    ],
+    "日常故事": [
+      `Morning Thoughts at the Wooden Desk`,
+      `The Art of Starting Over`,
+      `A Quiet Moment of Learning`,
+      `Notes from a Rainy Afternoon`
+    ],
+    "新闻评论": [
+      `A Community Moving Forward`,
+      `The True Measure of Practical Change`,
+      `Rethinking the Path Ahead`,
+      `Voices of Growth and Renewal`
+    ],
+    "商业洞察": [
+      `Building Sustainable Momentum`,
+      `The Anatomy of Modern Decisions`,
+      `Navigating Uncharted Markets`,
+      `From Insight to Execution`
+    ]
+  };
+
+  const titleList = titles[genre] || titles["日常故事"];
+  const title = titleList[Math.floor(Math.random() * titleList.length)];
+
+  // 题材自然开篇
+  const openings = {
+    "科技观察": "In an era where technology evolves at an unprecedented pace, researchers often find that real breakthroughs do not happen overnight.",
+    "科幻小说": "Far across the tranquil twilight expanse of the orbital station, the quiet hum of the atmospheric engines filled the vast study.",
+    "日常故事": "On a gentle, sunlit morning, the steam rose slowly from a warm ceramic cup on the oak desk, inviting a period of uninterrupted contemplation.",
+    "新闻评论": "Recent developments across our cities remind us that meaningful transformation rarely arrives with loud announcements; it begins in ordinary choices.",
+    "商业洞察": "Every long-term endeavor requires not only ambitious vision but also the patience to recognize gradual improvements day by day."
+  };
+
+  // 动态将用户输入的单词自然编织到句子中
+  const sentences = safeWords.map((word, i) => {
+    const W = titleCase(word);
+    const patterns = [
+      `Learning to remain ${word} during unexpected difficulties allows individuals to see opportunity where others notice only obstacle.`,
+      `A single thoughtful conversation can become a true ${word}, igniting enthusiasm across the entire team.`,
+      `The effect was remarkably ${word} at the beginning, yet observant minds could perceive the genuine change taking place.`,
+      `When patience is maintained through the quiet hours, fresh understanding begins to ${word} naturally.`,
+      `Recognizing the value of each ${word} element helps bridge the gap between initial theory and concrete realization.`,
+      `Through persistent practice, one's ability to master ${word} ideas develops into second nature.`
     ];
-    return options[index % options.length];
+    return patterns[i % patterns.length];
   });
-  const body = [
-    genreOpenings[genre] || genreOpenings["科技观察"],
-    "Their work was not dramatic. It was a habit of noticing, revising, and returning to the same question with more care.",
-    ...sentences,
-    "By the end of the week, the team understood that progress often begins quietly: not with certainty, but with attention and a willingness to learn from what appears next.",
-  ].join("\n\n");
+
+  // 段落结构化组合
+  const p1 = openings[genre] || openings["日常故事"];
+  const p2 = sentences.slice(0, Math.ceil(sentences.length / 2)).join(" ");
+  const p3 = sentences.slice(Math.ceil(sentences.length / 2)).join(" ");
+  const p4 = "Ultimately, the habit of steady reflection and purposeful focus shapes our capacity to grow, proving that every deep effort leaves an enduring mark.";
+
+  const bodyParagraphs = [p1, p2, p3, p4].filter(Boolean);
+  const body = bodyParagraphs.join("\n\n");
 
   return {
+    id: `reading-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     date: getToday(),
-    title: "The Quiet Catalyst",
+    title,
     body,
     words: safeWords,
     genre,
     difficulty,
     targetWordCount,
-    source: "本地演示",
+    source: "精选情境短文",
     createdAt: new Date().toISOString(),
-    definitions: safeWords.map(fallbackDefinition),
+    definitions,
   };
 }
 
@@ -89,28 +147,39 @@ function extractJson(text) {
   const cleaned = String(text || "").trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
   const start = cleaned.indexOf("{");
   const end = cleaned.lastIndexOf("}");
-  if (start < 0 || end < 0) throw new Error("模型没有返回可解析的数据。");
-  return JSON.parse(cleaned.slice(start, end + 1));
+  if (start < 0 || end < 0) throw new Error("模型没有返回有效的数据结构。");
+  const slice = cleaned.slice(start, end + 1);
+  return JSON.parse(slice);
 }
 
 function normaliseModelResult(payload, params) {
-  const definitions = Array.isArray(payload.definitions) ? payload.definitions : [];
-  const byWord = new Map(definitions.map((item) => [String(item.word || "").toLowerCase(), item]));
+  const rawDefs = Array.isArray(payload.definitions) ? payload.definitions : [];
+  const byWord = new Map(rawDefs.map((item) => [String(item.word || "").toLowerCase(), item]));
+
   return {
+    id: `reading-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     date: getToday(),
-    title: String(payload.title || "Today's Reading").slice(0, 80),
+    title: String(payload.title || `${titleCase(params.words[0] || 'Insight')} in Focus`).slice(0, 80),
     body: String(payload.body || "").trim(),
     words: params.words,
     genre: params.genre,
     difficulty: params.difficulty,
     targetWordCount: params.targetWordCount,
-    source: "AI 生成",
+    source: "AI 深度生成",
     createdAt: new Date().toISOString(),
-    definitions: params.words.map((word) => ({
-      ...fallbackDefinition(word),
-      ...(byWord.get(word.toLowerCase()) || {}),
-      word,
-    })),
+    definitions: params.words.map((word) => {
+      const local = lookupLexicon(word);
+      const aiDef = byWord.get(word.toLowerCase()) || {};
+      return {
+        ...local,
+        ...aiDef,
+        word,
+        ipa: aiDef.ipa || local.ipa,
+        partOfSpeech: aiDef.partOfSpeech || local.partOfSpeech,
+        definition: aiDef.definition || local.definition,
+        explanation: aiDef.explanation || local.explanation,
+      };
+    }),
   };
 }
 
@@ -184,15 +253,16 @@ async function generateReading(params, settings) {
 
   const baseUrl = normaliseBaseUrl(settings.baseUrl);
   if (!baseUrl || !settings.model?.trim()) throw new Error("请先在设置中填写接口地址和模型名称。");
-  const vocabularyRule = DIFFICULTY_VOCABULARY_RULES[params.difficulty] || DIFFICULTY_VOCABULARY_RULES["四级"];
-  const prompt = `Return ONLY compact valid JSON, without markdown. Write a natural English reading of about ${targetWordCount} words for Chinese ${params.difficulty} students in the ${params.genre} genre. Keep within 10% of the requested length. Controlled vocabulary is mandatory: the vocabulary ceiling is ${params.difficulty}, defined as ${vocabularyRule}. Target words are the only exception: include every target word exactly as written even if it is outside the selected level. Every other content word in the title and body must stay within the selected vocabulary range; ordinary grammar and function words are allowed. Do not introduce words above or outside this level. Before responding, silently audit the title and body and replace every out-of-level non-target word with a simpler approved ${params.difficulty} alternative. JSON: {"title":"string","body":"paragraphs separated by \\n\\n","definitions":[{"word":"string","ipa":"string","partOfSpeech":"Chinese label","definition":"concise Chinese definition","explanation":"Chinese explanation under 24 characters"}]}. Target words: ${params.words.join(", ")}.`;
+
+  const prompt = `Return ONLY compact valid JSON, without markdown code fences. Write an authentic, coherent English article of about ${targetWordCount} words suited for Chinese ${params.difficulty} level students in the ${params.genre} genre. You MUST naturally incorporate the following target words: ${params.words.join(", ")}. In the JSON response, provide a fitting title, body with paragraphs separated by \\n\\n, and a definitions array containing each target word's phonetic IPA, partOfSpeech (in Chinese), concise Chinese definition, and a short explanation. JSON schema: {"title":"string","body":"string","definitions":[{"word":"string","ipa":"string","partOfSpeech":"string","definition":"string","explanation":"string"}]}`;
+
   const maxTokens = Math.min(1800, Math.max(480, Math.ceil(targetWordCount * 1.8) + params.words.length * 70));
   let response;
   try {
     response = await requestModelApi(baseUrl, "/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${settings.apiKey.trim()}` },
-      body: JSON.stringify({ model: settings.model.trim(), temperature: 0.2, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] }),
+      body: JSON.stringify({ model: settings.model.trim(), temperature: 0.3, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] }),
     });
   } catch {
     const hint = useAppProxy()
@@ -208,5 +278,6 @@ async function generateReading(params, settings) {
   return session;
 }
 
-window.LexoraApi = { createDemoSession, detectModels, generateReading, getToday, parseWords };
+window.LexoraApi = { createDemoSession, detectModels, generateReading, getToday, parseWords, lookupLexicon };
 })();
+
