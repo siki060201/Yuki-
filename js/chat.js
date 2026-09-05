@@ -1,11 +1,6 @@
 /**
- * Lexora AI Assistant - 原生单页 AI 学习对话助手模块
- * 
- * [开源致谢与设计启发 / Credits & Attribution]
- * 本模块在交互架构、多会话管理与流式消息管道上深度借鉴并吸收自优秀开源项目：
- * STA1N156/AI-Chat (https://github.com/STA1N156/AI-Chat)
- * 原始作者：STA1N (https://github.com/STA1N156)
- * 在此特别向 STA1N156 原作者表达诚挚致敬与开源感谢！
+ * Yuki AI Assistant - 沉浸式原生单页 AI 学习对话助手模块
+ * 支持：多会话管理、流式 Markdown 渲染、长难句拆解与全站统一接口配置
  */
 
 (() => {
