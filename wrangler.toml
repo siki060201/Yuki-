@@ -6,7 +6,8 @@ workers_dev = true
 [assets]
 directory = "public"
 binding = "ASSETS"
-run_worker_first = true
+# 只有 /api/* 走 Worker，静态资源直接由边缘缓存提供，节省请求配额
+run_worker_first = ["/api/*"]
 
 [[routes]]
 pattern = "suki0201.cc.cd"
@@ -15,3 +16,7 @@ custom_domain = true
 [[kv_namespaces]]
 binding = "LEXORA_KV"
 id = "ee0fc0af67d5446e8e2f33c599874bba"
+
+# 可选：限制模型代理只允许这些上游域名（逗号分隔）。不设置则允许任意公网 https 域名。
+# [vars]
+# PROXY_ALLOWED_HOSTS = "api.openai.com,integrate.api.nvidia.com,dashscope.aliyuncs.com"

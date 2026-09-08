@@ -1,15 +1,19 @@
 {
-  "name": "lexora-ai-reader",
-  "version": "1.0.0",
+  "name": "yuki-study-room",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
+  "description": "Yuki 自习室 · 主动回忆 + 间隔重复的英语背词工作台，内置 AI 语境阅读室与助教",
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "npm run build && wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "serve": "npm run build && node server/sync-server.js",
+    "check": "node scripts/selfcheck.mjs",
+    "check:browser": "node scripts/browser-check.mjs http://localhost:3000",
+    "check:flow": "node scripts/browser-flow.mjs http://localhost:3000"
   },
   "devDependencies": {
-    "shadcn": "^4.19.1",
     "wrangler": "^4.27.0"
   }
 }

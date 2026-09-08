@@ -21,3 +21,5 @@ implementation_plan.md
 .env*
 .DS_Store
 Thumbs.db
+server/storage_db.json
+_archive/

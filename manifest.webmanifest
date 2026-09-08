@@ -1,0 +1,21 @@
+{
+  "name": "Yuki 自习室",
+  "short_name": "Yuki",
+  "description": "主动回忆 · 间隔重复 · AI 语境阅读的英语背词工作台",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1013",
+  "theme_color": "#0f1013",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "今日复习", "url": "./#learn", "description": "开始今天到期的复习" },
+    { "name": "AI 助教", "url": "./#chat" }
+  ]
+}

@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Yuki 自习室 · 设计变量
+   两套主题：夜读黑金（默认） / 日光纸墨
+   ========================================================================== */
+
+:root {
+  /* 背景与面板 */
+  --bg: #0e0f13;
+  --bg-2: #14161c;
+  --scene-image: url("../assets/generated/cozy-night-study.png");
+  --scene-overlay: linear-gradient(180deg, rgba(10, 11, 15, 0.55) 0%, rgba(10, 11, 15, 0.82) 60%, rgba(10, 11, 15, 0.94) 100%);
+  --panel: rgba(21, 23, 29, 0.74);
+  --panel-solid: #181a21;
+  --panel-raised: rgba(28, 30, 38, 0.86);
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.085);
+  --surface-3: rgba(255, 255, 255, 0.13);
+  --border: rgba(255, 255, 255, 0.085);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --highlight: rgba(255, 255, 255, 0.06);
+
+  /* 文本 */
+  --text: #f3eee4;
+  --text-2: rgba(243, 238, 228, 0.70);
+  --text-3: rgba(243, 238, 228, 0.46);
+  --text-4: rgba(243, 238, 228, 0.28);
+
+  /* 品牌金 */
+  --gold: #e2b86e;
+  --gold-2: #f4d89b;
+  --gold-3: #c9a05a;
+  --gold-ink: #1c1607;
+  --gold-soft: rgba(226, 184, 110, 0.14);
+  --gold-line: rgba(226, 184, 110, 0.38);
+  --gold-glow: rgba(226, 184, 110, 0.28);
+
+  /* 功能色 */
+  --blue: #86b6ff;
+  --blue-soft: rgba(134, 182, 255, 0.15);
+  --green: #8fd9a8;
+  --green-soft: rgba(143, 217, 168, 0.15);
+  --red: #ff8f86;
+  --red-soft: rgba(255, 143, 134, 0.15);
+  --amber: #ffcf73;
+  --amber-soft: rgba(255, 207, 115, 0.15);
+
+  /* 形状与阴影 */
+  --radius-xs: 8px;
+  --radius-s: 12px;
+  --radius: 16px;
+  --radius-l: 22px;
+  --radius-xl: 28px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 30px rgba(0, 0, 0, 0.32);
+  --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.55);
+  --shadow-gold: 0 8px 26px rgba(226, 184, 110, 0.28);
+  --blur: blur(26px) saturate(150%);
+
+  /* 字体 */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Charter", Georgia, "Songti SC", "STSong", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  /* 动效 */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 220ms;
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f1ebe1;
+  --bg-2: #e8e0d3;
+  --scene-image: url("../assets/generated/cozy-daylight-study.png");
+  --scene-overlay: linear-gradient(180deg, rgba(245, 240, 232, 0.72) 0%, rgba(245, 240, 232, 0.88) 55%, rgba(245, 240, 232, 0.97) 100%);
+  --panel: rgba(255, 252, 247, 0.80);
+  --panel-solid: #fffdf9;
+  --panel-raised: rgba(255, 253, 249, 0.92);
+  --surface: rgba(40, 30, 15, 0.04);
+  --surface-2: rgba(40, 30, 15, 0.075);
+  --surface-3: rgba(40, 30, 15, 0.12);
+  --border: rgba(40, 30, 15, 0.10);
+  --border-strong: rgba(40, 30, 15, 0.20);
+  --highlight: rgba(255, 255, 255, 0.7);
+
+  --text: #1f1a13;
+  --text-2: rgba(31, 26, 19, 0.72);
+  --text-3: rgba(31, 26, 19, 0.50);
+  --text-4: rgba(31, 26, 19, 0.32);
+
+  --gold: #a97b2b;
+  --gold-2: #c69540;
+  --gold-3: #8d6620;
+  --gold-ink: #fffaf0;
+  --gold-soft: rgba(169, 123, 43, 0.12);
+  --gold-line: rgba(169, 123, 43, 0.42);
+  --gold-glow: rgba(169, 123, 43, 0.22);
+
+  --blue: #2f6fd6;
+  --blue-soft: rgba(47, 111, 214, 0.12);
+  --green: #2f9e5f;
+  --green-soft: rgba(47, 158, 95, 0.13);
+  --red: #d64545;
+  --red-soft: rgba(214, 69, 69, 0.12);
+  --amber: #c98a12;
+  --amber-soft: rgba(201, 138, 18, 0.14);
+
+  --shadow-1: 0 1px 2px rgba(60, 40, 10, 0.06), 0 10px 28px rgba(60, 40, 10, 0.09);
+  --shadow-2: 0 24px 70px rgba(60, 40, 10, 0.18);
+  --shadow-gold: 0 8px 24px rgba(169, 123, 43, 0.25);
+
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur: 0ms; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
