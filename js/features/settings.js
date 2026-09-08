@@ -7,6 +7,7 @@ import { openModal, confirmDialog } from '../ui/overlay.js';
 import { storage, DEFAULT_SETTINGS } from '../core/storage.js';
 import * as Api from '../core/api.js';
 import * as Sync from '../core/sync.js';
+import * as Pomodoro from './pomodoro.js';
 import { applyTheme } from '../ui/theme.js';
 
 let root = null;
@@ -60,6 +61,18 @@ function template() {
         </div>
         <label class="switch-row"><span>翻牌后自动朗读</span><input type="checkbox" id="pref-audio" /><i class="switch"></i></label>
       </div>
+      <header class="panel-head mt"><div><p class="eyebrow">专注</p><h3>番茄钟时长</h3></div></header>
+      <div class="pomo-durations" id="pref-pomo">
+        <label><span>专注</span><input id="pref-focus-min" type="number" min="1" max="180" inputmode="numeric" /><em>分</em></label>
+        <label><span>短休</span><input id="pref-short-min" type="number" min="1" max="60" inputmode="numeric" /><em>分</em></label>
+        <label><span>长休</span><input id="pref-long-min" type="number" min="1" max="90" inputmode="numeric" /><em>分</em></label>
+        <label><span>每</span><input id="pref-long-every" type="number" min="2" max="12" inputmode="numeric" /><em>轮长休</em></label>
+      </div>
+
+      <header class="panel-head mt"><div><p class="eyebrow">环境声</p><h3>音景与音量</h3></div></header>
+      <div id="pref-ambient"></div>
+      <p class="muted small">音景为实时合成，不下载任何音频文件。开启后画面会出现对应的动效（雨丝、浪光、火星…）。</p>
+
       <header class="panel-head mt"><div><p class="eyebrow">外观</p><h3>主题</h3></div></header>
       <div class="theme-row">
         <button type="button" class="theme-card" data-theme-pick="dark"><i class="theme-swatch dark"></i><span>夜读 · 黑金</span></button>
@@ -184,6 +197,10 @@ function loadForm() {
   $('#pref-daily', root).value = s.dailyNew; $('#pref-daily-val', root).textContent = s.dailyNew;
   $('#pref-group', root).value = s.groupSize; $('#pref-group-val', root).textContent = s.groupSize;
   $('#pref-audio', root).checked = !!s.autoAudio;
+  $('#pref-focus-min', root).value = s.pomodoroMinutes;
+  $('#pref-short-min', root).value = s.breakMinutes;
+  $('#pref-long-min', root).value = s.longBreakMinutes;
+  $('#pref-long-every', root).value = s.longBreakEvery;
   $$('#pref-input [data-v]', root).forEach(b => b.classList.toggle('is-active', b.dataset.v === s.inputMode));
   $$('.theme-card', root).forEach(b => b.classList.toggle('is-active', b.dataset.themePick === (s.theme || 'dark')));
   $$('[data-provider]', root).forEach(b => b.classList.toggle('is-active', b.dataset.provider === Api.normaliseBaseUrl(s.baseUrl)));
@@ -237,6 +254,22 @@ function bind() {
   group.addEventListener('change', () => { storage.saveSettings({ groupSize: Number(group.value) }); window.dispatchEvent(new CustomEvent('settings-changed')); });
   $$('#pref-input [data-v]', root).forEach(b => b.addEventListener('click', () => { storage.saveSettings({ inputMode: b.dataset.v }); $$('#pref-input [data-v]', root).forEach(x => x.classList.toggle('is-active', x === b)); window.dispatchEvent(new CustomEvent('settings-changed')); }));
   $('#pref-audio', root).addEventListener('change', (e) => { storage.saveSettings({ autoAudio: e.target.checked }); window.dispatchEvent(new CustomEvent('settings-changed')); });
+
+  // 番茄钟时长
+  const pomoFields = { 'pref-focus-min': ['pomodoroMinutes', 1, 180], 'pref-short-min': ['breakMinutes', 1, 60], 'pref-long-min': ['longBreakMinutes', 1, 90], 'pref-long-every': ['longBreakEvery', 2, 12] };
+  for (const [id, [key, min, max]] of Object.entries(pomoFields)) {
+    const input = $('#' + id, root);
+    input.addEventListener('change', () => {
+      const v = Math.max(min, Math.min(max, parseInt(input.value, 10) || min));
+      input.value = v;
+      storage.saveSettings({ [key]: v });
+      window.dispatchEvent(new CustomEvent('settings-changed'));
+      toast('番茄钟时长已更新', 'info', 1400);
+    });
+  }
+
+  // 环境声控制条（与首页、专注页共用同一套控件）
+  Pomodoro.renderAmbientBar($('#pref-ambient', root));
   $$('.theme-card', root).forEach(b => b.addEventListener('click', () => { applyTheme(b.dataset.themePick); $$('.theme-card', root).forEach(x => x.classList.toggle('is-active', x === b)); }));
 
   $('#data-export', root).addEventListener('click', () => {

@@ -1,0 +1,17 @@
+/* 统计页：番茄钟累计面板与专注柱图配色 */
+.sw-green { background: var(--green); }
+.seg-green { background: var(--green); opacity: 0.85; }
+
+.focus-totals { display: flex; flex-direction: column; gap: 2px; }
+.ft-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 2px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.ft-row strong { font-family: var(--font-mono); font-size: 15px; color: var(--text); }
+.ft-row strong.gold { color: var(--gold); }
+.ft-divider { height: 1px; margin: 6px 0; background: var(--border); }

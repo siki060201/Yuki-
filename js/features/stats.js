@@ -28,6 +28,14 @@ function template() {
       <header class="panel-head mt"><div><p class="eyebrow">未来 7 天</p><h3>预计到期</h3></div></header>
       <div class="upcoming" id="st-upcoming"></div>
     </section>
+    <section class="panel span-2">
+      <header class="panel-head"><div><p class="eyebrow">最近 14 天</p><h3>专注与休息</h3></div><div class="legend"><span><i class="sw sw-gold"></i>专注</span><span><i class="sw sw-green"></i>休息</span></div></header>
+      <div class="bars" id="st-focus-bars"></div>
+    </section>
+    <section class="panel">
+      <header class="panel-head"><div><p class="eyebrow">番茄钟</p><h3>累计专注</h3></div></header>
+      <div class="focus-totals" id="st-focus-totals"></div>
+    </section>
     <section class="panel span-3">
       <header class="panel-head"><div><p class="eyebrow">最近 20 周</p><h3>打卡热力图</h3></div><span class="muted small" id="st-heat-total"></span></header>
       <div class="heatmap-wrap"><div class="heatmap" id="st-heatmap"></div></div>
@@ -76,6 +84,35 @@ function renderBars() {
     const [, mm, dd] = d.date.split('-');
     return `<div class="bar" title="${d.date} · 新词 ${d.new} · 复习 ${d.review}"><div class="bar-stack"><i class="seg seg-blue" style="height:${rh}%"></i><i class="seg seg-gold" style="height:${nh}%"></i></div><span>${Number(dd)}${dd === '01' || d === data[0] ? `<br>${Number(mm)}月` : ''}</span></div>`;
   }).join('');
+}
+
+function renderFocus() {
+  const data = Engine.getRecentLog(14);
+  const maxMin = Math.max(25, ...data.map(d => ((d.focusSec || 0) + (d.breakSec || 0)) / 60));
+  $('#st-focus-bars', root).innerHTML = data.map(d => {
+    const fm = (d.focusSec || 0) / 60;
+    const bm = (d.breakSec || 0) / 60;
+    const [, mm, dd] = d.date.split('-');
+    return `<div class="bar" title="${d.date} · 专注 ${Math.round(fm)} 分 · 休息 ${Math.round(bm)} 分 · ${d.pomos || 0} 轮"><div class="bar-stack"><i class="seg seg-green" style="height:${(bm / maxMin) * 100}%"></i><i class="seg seg-gold" style="height:${(fm / maxMin) * 100}%"></i></div><span>${Number(dd)}</span></div>`;
+  }).join('');
+
+  const log = Object.values(storage.getLog());
+  const focusSec = log.reduce((a, d) => a + (d.focusSec || 0), 0);
+  const breakSec = log.reduce((a, d) => a + (d.breakSec || 0), 0);
+  const pomos = log.reduce((a, d) => a + (d.pomos || 0), 0);
+  const today = log.length ? (storage.getLog()[todayKey()] || {}) : {};
+  const fmt = (s) => {
+    const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60);
+    return h ? `${h}h ${m}m` : `${m}m`;
+  };
+  $('#st-focus-totals', root).innerHTML = `
+    <div class="ft-row"><span>今日专注</span><strong>${fmt(today.focusSec || 0)}</strong></div>
+    <div class="ft-row"><span>今日休息</span><strong>${fmt(today.breakSec || 0)}</strong></div>
+    <div class="ft-row"><span>今日轮数</span><strong>${today.pomos || 0}</strong></div>
+    <div class="ft-divider"></div>
+    <div class="ft-row"><span>累计专注</span><strong class="gold">${fmt(focusSec)}</strong></div>
+    <div class="ft-row"><span>累计休息</span><strong>${fmt(breakSec)}</strong></div>
+    <div class="ft-row"><span>累计轮数</span><strong>${pomos}</strong></div>`;
 }
 
 function renderMaturity() {
@@ -176,7 +213,7 @@ function renderWrong() {
 
 export function render() {
   if (!root) return;
-  renderTiles(); renderBars(); renderMaturity(); renderHeatmap(); renderCalendar(); renderWrong();
+  renderTiles(); renderBars(); renderFocus(); renderMaturity(); renderHeatmap(); renderCalendar(); renderWrong();
   refreshIcons(root);
 }
 
@@ -187,6 +224,7 @@ export function init(container) {
   $('#st-next', root).addEventListener('click', () => { month = new Date(month.getFullYear(), month.getMonth() + 1, 1); selectedDate = ''; renderCalendar(); });
   $('#st-wrong-go', root).addEventListener('click', () => Learn.start('wrong'));
   window.addEventListener('data-changed', () => { if (document.body.dataset.view === 'stats') render(); });
+  window.addEventListener('pomodoro-stats', () => { if (document.body.dataset.view === 'stats') renderFocus(); });
 }
 
 export function onShow() { render(); }

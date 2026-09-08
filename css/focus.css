@@ -1,0 +1,279 @@
+/* ==========================================================================
+   Yuki 自习室 · 专注模式 / 环境音景 / 画面动效
+   ========================================================================== */
+
+/* ---------------- 环境动效层（雨丝、浪光、火星…） ---------------- */
+.ambient-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+.ambient-fx.is-on { opacity: 1; }
+
+/* ---------------- 环境声控制条（首页与专注页共用） ---------------- */
+.ambient-bar { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.ambient-btns { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.ambient-btns button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 2px;
+  border-radius: 12px;
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: background var(--dur), color var(--dur), border-color var(--dur), transform var(--dur) var(--ease);
+}
+.ambient-btns button svg { width: 17px; height: 17px; }
+.ambient-btns button:hover { color: var(--text); background: var(--surface-2); transform: translateY(-1px); }
+.ambient-btns button.is-active { color: var(--gold); background: var(--gold-soft); border-color: var(--gold-line); }
+.ambient-volume { display: flex; align-items: center; gap: 10px; padding: 4px 2px; }
+.ambient-volume svg { width: 15px; height: 15px; color: var(--text-3); flex-shrink: 0; }
+.ambient-volume input[type="range"] { flex: 1; }
+.ambient-volume em { min-width: 26px; text-align: right; font-size: 11.5px; font-style: normal; color: var(--text-3); }
+
+/* ---------------- 迷你计时胶囊（退出全屏后停在顶栏） ---------------- */
+.pomo-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-line);
+  box-shadow: 0 4px 18px var(--gold-glow);
+  animation: rise 300ms var(--ease) both;
+  flex-shrink: 0;
+}
+.pomo-mini:hover { filter: brightness(1.08); }
+.pomo-mini svg { width: 15px; height: 15px; }
+.pomo-mini.is-paused { color: var(--text-3); background: var(--surface-2); border-color: var(--border); box-shadow: none; }
+.pomo-mini[data-phase="short"],
+.pomo-mini[data-phase="long"] { color: var(--green); background: var(--green-soft); border-color: transparent; box-shadow: none; }
+
+/* ---------------- 沉浸专注模式 ---------------- */
+body.is-immersive { overflow: hidden; }
+body.is-immersive .app,
+body.is-immersive .tabbar {
+  filter: blur(9px) brightness(0.5);
+  transform: scale(0.985);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 420ms var(--ease), filter 420ms var(--ease), transform 420ms var(--ease);
+}
+
+.focus-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px calc(32px + env(safe-area-inset-bottom));
+  opacity: 0;
+  transition: opacity 380ms var(--ease);
+}
+.focus-stage.is-open { opacity: 1; }
+
+.focus-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: min(560px, 100%);
+  text-align: center;
+  transform: scale(0.94) translateY(14px);
+  transition: transform 520ms var(--ease);
+}
+.focus-stage.is-open .focus-inner { transform: none; }
+
+.focus-phase {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.focus-phase em {
+  font-style: normal;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.focus-dial { position: relative; display: grid; place-items: center; }
+.focus-dial svg { width: min(74vw, 360px); height: min(74vw, 360px); transform: rotate(-90deg); }
+.focus-dial circle { fill: none; stroke-width: 5; stroke-linecap: round; }
+.focus-dial-bg { stroke: var(--surface-3); }
+.focus-dial-fg {
+  stroke: var(--gold);
+  filter: drop-shadow(0 0 14px var(--gold-glow));
+  transition: stroke-dashoffset 400ms linear, stroke 400ms ease;
+}
+.focus-stage[data-phase="short"] .focus-dial-fg,
+.focus-stage[data-phase="long"] .focus-dial-fg { stroke: var(--green); }
+
+.focus-time {
+  position: absolute;
+  font-size: clamp(56px, 15vw, 108px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.35);
+}
+[data-theme="light"] .focus-time { text-shadow: 0 2px 30px rgba(255, 255, 255, 0.6); }
+
+/* 专注时的呼吸光圈 */
+.focus-dial::before {
+  content: "";
+  position: absolute;
+  width: min(74vw, 360px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 62%);
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.focus-stage[data-phase="focus"] .focus-dial::before {
+  opacity: 0.5;
+  animation: breathe 5.5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(0.9); opacity: 0.28; }
+  50% { transform: scale(1.06); opacity: 0.55; }
+}
+
+.focus-controls { display: flex; align-items: center; gap: 10px; }
+.focus-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  min-width: 46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+  background: var(--panel-raised);
+  border: 1px solid var(--border);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  transition: transform var(--dur) var(--ease), background var(--dur), color var(--dur), border-color var(--dur);
+}
+.focus-btn:hover { color: var(--text); border-color: var(--border-strong); transform: translateY(-1px); }
+.focus-btn:active { transform: scale(0.96); }
+.focus-btn.primary {
+  padding: 0 26px;
+  color: var(--gold-ink);
+  background: linear-gradient(135deg, var(--gold-2), var(--gold) 60%, var(--gold-3));
+  border-color: transparent;
+  box-shadow: var(--shadow-gold);
+}
+
+.focus-stage .ambient-bar { width: 100%; max-width: 460px; margin-top: 4px; }
+.focus-stage .ambient-btns button { background: var(--panel); }
+.focus-today { font-size: 12.5px; color: var(--text-3); }
+.focus-hint { font-size: 11.5px; color: var(--text-4); }
+
+/* 完成一轮的庆祝波纹 */
+.focus-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  pointer-events: none;
+  animation: burst 1.3s var(--ease) forwards;
+}
+@keyframes burst {
+  0% { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(14); opacity: 0; }
+}
+
+/* ---------------- 番茄钟卡片（首页） ---------------- */
+.pomodoro .pomo-main { margin: 2px 0 6px; }
+.pomo-time {
+  font-size: 54px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-align: center;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur);
+}
+.pomodoro.is-running .pomo-time { color: var(--gold); }
+.pomodoro[data-phase="short"].is-running .pomo-time,
+.pomodoro[data-phase="long"].is-running .pomo-time { color: var(--green); }
+.pomodoro.is-running .progress-fill.gold { box-shadow: 0 0 12px var(--gold-glow); }
+
+.pomo-controls { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.pomo-controls .btn-primary { flex: 1; }
+
+.pomo-durations {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.pomo-durations label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-3); }
+.pomo-durations span { padding-left: 2px; }
+.pomo-durations input {
+  min-height: 34px;
+  padding: 5px 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-radius: 10px;
+}
+.pomo-durations em { font-style: normal; font-size: 10px; text-align: center; color: var(--text-4); }
+
+.pomo-today { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.pomo-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.pomo-stat svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
+.pomo-stat div { display: flex; flex-direction: column; min-width: 0; }
+.pomo-stat strong { font-size: 13px; line-height: 1.2; white-space: nowrap; }
+.pomo-stat span { font-size: 10.5px; color: var(--text-3); }
+
+/* 顶栏要容纳迷你计时器 */
+.topbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+
+@media (max-width: 700px) {
+  .ambient-btns { grid-template-columns: repeat(4, 1fr); }
+  .focus-controls { flex-wrap: wrap; justify-content: center; }
+  .pomo-time { font-size: 44px; }
+  .pomo-durations { grid-template-columns: repeat(2, 1fr); }
+  .pomo-today { grid-template-columns: 1fr; }
+}

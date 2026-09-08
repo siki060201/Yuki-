@@ -37,13 +37,31 @@ body.has-overlay { overflow: hidden; }
   pointer-events: none;
   transition: opacity 400ms ease;
 }
+/* 顶部压一层同色渐变：标题永远清晰，中下部背景保持可见 */
 .scene::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 80% at 70% 0%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+  background:
+    linear-gradient(180deg, rgba(10, 11, 15, 0.62) 0%, rgba(10, 11, 15, 0.18) 34%, transparent 58%),
+    radial-gradient(120% 80% at 70% 0%, transparent 40%, rgba(0, 0, 0, 0.32) 100%);
 }
-[data-theme="light"] .scene::after { background: radial-gradient(120% 80% at 70% 0%, transparent 50%, rgba(80, 60, 30, 0.10) 100%); }
+[data-theme="light"] .scene::after {
+  background:
+    linear-gradient(180deg, rgba(249, 245, 238, 0.86) 0%, rgba(249, 245, 238, 0.42) 26%, rgba(249, 245, 238, 0.06) 52%, transparent 70%),
+    radial-gradient(120% 80% at 70% 0%, transparent 55%, rgba(80, 60, 30, 0.08) 100%);
+}
+
+/* 侧栏一侧也压一层，避免导航文字压在高光背景上 */
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(10, 11, 15, 0.42) 0%, transparent 22%);
+}
+[data-theme="light"] .scene::before {
+  background: linear-gradient(90deg, rgba(249, 245, 238, 0.72) 0%, transparent 24%);
+}
 
 /* 排版 */
 h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; color: var(--text); }

@@ -3,17 +3,18 @@
  * 词库与图片：缓存优先（体积大、极少变化）
  * /api/*：一律直连，不缓存
  */
-const VERSION = 'yuki-v2.0.0';
+const VERSION = 'yuki-v2.1.0';
 const STATIC = `${VERSION}-static`;
 const HEAVY = `${VERSION}-heavy`;
 
 const PRECACHE = [
   './', './index.html', './manifest.webmanifest',
-  './css/tokens.css', './css/base.css', './css/components.css', './css/views.css',
+  './css/tokens.css', './css/base.css', './css/components.css', './css/views.css', './css/focus.css', './css/stats-extra.css',
   './js/lucide.min.js', './js/main.js',
   './js/core/api.js', './js/core/audio.js', './js/core/crypto.js', './js/core/lexicon.js', './js/core/srs.js', './js/core/storage.js', './js/core/sync.js',
   './js/ui/dom.js', './js/ui/overlay.js', './js/ui/router.js', './js/ui/theme.js',
-  './js/features/chat.js', './js/features/home.js', './js/features/learn.js', './js/features/reading.js', './js/features/settings.js', './js/features/stats.js', './js/features/study-engine.js',
+  './js/ui/ambient-fx.js',
+  './js/features/chat.js', './js/features/home.js', './js/features/learn.js', './js/features/reading.js', './js/features/settings.js', './js/features/stats.js', './js/features/study-engine.js', './js/features/pomodoro.js',
   './assets/icon.svg',
 ];
 

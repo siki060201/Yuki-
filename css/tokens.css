@@ -7,11 +7,12 @@
   /* 背景与面板 */
   --bg: #0e0f13;
   --bg-2: #14161c;
-  --scene-image: url("../assets/generated/cozy-night-study.png");
-  --scene-overlay: linear-gradient(180deg, rgba(10, 11, 15, 0.55) 0%, rgba(10, 11, 15, 0.82) 60%, rgba(10, 11, 15, 0.94) 100%);
-  --panel: rgba(21, 23, 29, 0.74);
+  --scene-image: url("../assets/scenes/night-study.jpg");
+  --scene-overlay: linear-gradient(180deg, rgba(10, 11, 15, 0.42) 0%, rgba(10, 11, 15, 0.66) 55%, rgba(10, 11, 15, 0.86) 100%);
+  --scene-blur: 0px;
+  --panel: rgba(21, 23, 29, 0.72);
   --panel-solid: #181a21;
-  --panel-raised: rgba(28, 30, 38, 0.86);
+  --panel-raised: rgba(28, 30, 38, 0.88);
   --surface: rgba(255, 255, 255, 0.045);
   --surface-2: rgba(255, 255, 255, 0.085);
   --surface-3: rgba(255, 255, 255, 0.13);
@@ -70,11 +71,12 @@
 :root[data-theme="light"] {
   --bg: #f1ebe1;
   --bg-2: #e8e0d3;
-  --scene-image: url("../assets/generated/cozy-daylight-study.png");
-  --scene-overlay: linear-gradient(180deg, rgba(245, 240, 232, 0.72) 0%, rgba(245, 240, 232, 0.88) 55%, rgba(245, 240, 232, 0.97) 100%);
-  --panel: rgba(255, 252, 247, 0.80);
+  --scene-image: url("../assets/scenes/cafe-day.jpg"); /* TODO: 待生成 day-study.jpg 后换回 */
+  /* 白天不要糊住背景：整体遮罩降到三成左右，靠面板自身的不透明度保证文字可读 */
+  --scene-overlay: linear-gradient(180deg, rgba(247, 242, 234, 0.26) 0%, rgba(247, 242, 234, 0.42) 50%, rgba(247, 242, 234, 0.62) 100%);
+  --panel: rgba(255, 253, 249, 0.90);
   --panel-solid: #fffdf9;
-  --panel-raised: rgba(255, 253, 249, 0.92);
+  --panel-raised: rgba(255, 253, 249, 0.96);
   --surface: rgba(40, 30, 15, 0.04);
   --surface-2: rgba(40, 30, 15, 0.075);
   --surface-3: rgba(40, 30, 15, 0.12);
@@ -115,3 +117,34 @@
   :root { --dur: 0ms; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* ==========================================================================
+   音景联动背景：环境音切换时，背景照片也跟着换
+   ========================================================================== */
+body[data-ambient="rain"]   { --scene-image: url("../assets/scenes/rain-night.jpg"); }
+body[data-ambient="fire"]   { --scene-image: url("../assets/scenes/fire-night.jpg"); }
+body[data-ambient="waves"]  { --scene-image: url("../assets/scenes/sea-night.jpg"); }
+body[data-ambient="forest"] { --scene-image: url("../assets/scenes/forest-day.jpg"); }
+body[data-ambient="cafe"]   { --scene-image: url("../assets/scenes/cafe-night.jpg"); }
+body[data-ambient="night"]  { --scene-image: url("../assets/scenes/sea-night.jpg"); }
+
+[data-theme="light"] body[data-ambient="rain"]   { --scene-image: url("../assets/scenes/rain-night.jpg"); }
+[data-theme="light"] body[data-ambient="waves"]  { --scene-image: url("../assets/scenes/sea-day.jpg"); }
+[data-theme="light"] body[data-ambient="cafe"]   { --scene-image: url("../assets/scenes/cafe-day.jpg"); }
+[data-theme="light"] body[data-ambient="forest"] { --scene-image: url("../assets/scenes/forest-day.jpg"); }
+
+/* 专注模式：换成极简背景并压暗，突出倒计时 */
+body[data-focus="on"] {
+  --scene-image: url("../assets/scenes/focus-night.jpg");
+  --scene-overlay: linear-gradient(180deg, rgba(8, 9, 12, 0.72) 0%, rgba(8, 9, 12, 0.86) 100%);
+}
+[data-theme="light"] body[data-focus="on"] {
+  --scene-image: url("../assets/scenes/focus-day.jpg");
+  --scene-overlay: linear-gradient(180deg, rgba(247, 242, 234, 0.62) 0%, rgba(247, 242, 234, 0.78) 100%);
+}
+/* 专注时若正在放某个音景，保留该场景照片，只加深遮罩 */
+body[data-focus="on"][data-ambient="rain"]   { --scene-image: url("../assets/scenes/rain-night.jpg"); }
+body[data-focus="on"][data-ambient="fire"]   { --scene-image: url("../assets/scenes/fire-night.jpg"); }
+body[data-focus="on"][data-ambient="waves"]  { --scene-image: url("../assets/scenes/sea-night.jpg"); }
+body[data-focus="on"][data-ambient="cafe"]   { --scene-image: url("../assets/scenes/cafe-night.jpg"); }
+body[data-focus="on"][data-ambient="forest"] { --scene-image: url("../assets/scenes/forest-day.jpg"); }

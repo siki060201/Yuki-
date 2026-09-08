@@ -1,6 +1,6 @@
 {
   "name": "yuki-study-room",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
   "description": "Yuki 自习室 · 主动回忆 + 间隔重复的英语背词工作台，内置 AI 语境阅读室与助教",
@@ -11,7 +11,11 @@
     "serve": "npm run build && node server/sync-server.js",
     "check": "node scripts/selfcheck.mjs",
     "check:browser": "node scripts/browser-check.mjs http://localhost:3000",
-    "check:flow": "node scripts/browser-flow.mjs http://localhost:3000"
+    "check:flow": "node scripts/browser-flow.mjs http://localhost:3000",
+    "check:audio": "node scripts/check-audio.mjs http://localhost:3000",
+    "check:focus": "node scripts/browser-focus.mjs http://localhost:3000",
+    "shots": "node scripts/shot-scenes.mjs http://localhost:3000",
+    "scenes": "node scripts/gen-scenes.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.27.0"

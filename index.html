@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/views.css" />
+    <link rel="stylesheet" href="css/focus.css" />
+    <link rel="stylesheet" href="css/stats-extra.css" />
     <script>
       // 首帧前应用已保存的主题，避免闪白
       try {
@@ -61,6 +63,9 @@
       <main class="main">
         <header class="topbar">
           <div><p class="eyebrow" id="page-eyebrow">TODAY · 今日</p><h1 id="page-title" class="serif">今天，从这里开始</h1></div>
+          <button type="button" class="pomo-mini" id="pomo-mini" title="回到全屏专注" hidden>
+            <i data-lucide="timer"></i><span class="mono">25:00</span>
+          </button>
         </header>
 
         <section class="view" data-view="home" id="view-home" aria-label="今日"></section>

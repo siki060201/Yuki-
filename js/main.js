@@ -17,6 +17,8 @@ import * as Reading from './features/reading.js';
 import * as Chat from './features/chat.js';
 import * as Stats from './features/stats.js';
 import * as Settings from './features/settings.js';
+import * as Pomodoro from './features/pomodoro.js';
+import * as AmbientFx from './ui/ambient-fx.js';
 
 function renderSyncChip(state = Sync.getState()) {
   const chip = $('#sync-chip');
@@ -111,6 +113,11 @@ async function boot() {
   initTheme();
   refreshIconsNow();
 
+  // 环境音音量与画面动效
+  Audio.setAmbientVolume(storage.getSettings().ambientVolume ?? 0.7);
+  AmbientFx.init();
+  Pomodoro.init();
+
   const containers = {
     home: $('#view-home'), learn: $('#view-learn'), reading: $('#view-reading'),
     chat: $('#view-chat'), stats: $('#view-stats'), settings: $('#view-settings'),
@@ -158,9 +165,35 @@ async function boot() {
   window.addEventListener('study-progress', renderStreak);
   window.addEventListener('data-changed', renderStreak);
 
-  // 恢复上次的环境声偏好只作为按钮状态，不自动播放（浏览器策略要求用户交互）
-  const ambient = storage.getSettings().ambient;
-  if (ambient && ambient !== 'none') $$('[data-ambient]').forEach(b => b.classList.toggle('is-active', b.dataset.ambient === ambient));
+  // 浏览器要求先有用户交互才能出声：首次交互时恢复上次的音景
+  const savedAmbient = storage.getSettings().ambient;
+  if (savedAmbient && savedAmbient !== 'none') {
+    const resume = () => {
+      document.removeEventListener('pointerdown', resume);
+      document.removeEventListener('keydown', resume);
+      if (Audio.getAmbient() === 'none') Audio.playAmbient(savedAmbient);
+    };
+    document.addEventListener('pointerdown', resume, { once: true });
+    document.addEventListener('keydown', resume, { once: true });
+  }
+
+  // 全局迷你计时器：退出全屏后仍能看到并一键回到专注
+  const mini = $('#pomo-mini');
+  if (mini) {
+    mini.addEventListener('click', () => Pomodoro.enterImmersive());
+    const syncMini = (snap) => {
+      const show = snap.running || snap.leftSec < snap.totalSec;
+      mini.hidden = !show || snap.immersive;
+      if (show) {
+        mini.dataset.phase = snap.phase;
+        mini.querySelector('span').textContent = snap.text;
+        mini.classList.toggle('is-paused', !snap.running);
+      }
+    };
+    Pomodoro.onChange(syncMini);
+    window.addEventListener('pomodoro-tick', (e) => syncMini(e.detail));
+    syncMini(Pomodoro.snapshot());
+  }
 
   registerServiceWorker();
   await lexiconReady;

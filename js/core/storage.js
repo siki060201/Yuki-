@@ -30,7 +30,12 @@ export const DEFAULT_SETTINGS = {
   groupSize: 10,
   dailyNew: 20,
   pomodoroMinutes: 25,
+  breakMinutes: 5,
+  longBreakMinutes: 15,
+  longBreakEvery: 4,
   ambient: 'none',
+  ambientVolume: 0.7,
+  sceneFollowsAmbient: true,
 };
 
 function emptyData() {
